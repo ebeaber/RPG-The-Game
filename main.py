@@ -4,23 +4,20 @@ import character
 # initialize game
 # TODO Add Load Player Logic after file handler fix
 
-print('{0:=^90}'.format(' The RPG '))
-print('{0:<90}'.format('Lets begin your adventure!'))
+print('{0:=^90}'.format(' The RPG '))  # Game Title line in text mode
+print('{0:<90}'.format('Lets begin your adventure!'))  # Crappy welcome message
 
-# Character Class Choice
-x = character.get_player_class()
-
-# Call the Player Object Factory and create a player
-player1 = character.Player.factory(x)
-
-# TODO class info message here, build an if statement to reflect the proper info on the class
+x = character.get_player_class()  # create a variable for the subclasses of the Player object
+player1 = character.Player.factory(x)  # Call the Player Object Factory and create a player
+class_info = character.Player.info_factory(x)  # Fetch the information on the chosen character class for the player.
 
 # Customize stats logic here
 # TODO Create the logic to have the player customize their stats and overwrite player key values
+
 print('\nGreetings', player1.name, '. Your character has 5 primary stats. Strength, Agility, Intelligence,\n'
       'Wisdom, and Charisma.  You have 50 points to distribute between all of your stats.\n'
-      'How you distribute these points will determine how strong your character\'s abilities will be.')
-
+      'How you distribute these points will determine how strong your character\'s abilities will be.\n')
+print('\n' + class_info + '\n')
 print('Please select from the following choices:')
 print('1 : Automatic Point Distribution')
 print('2 : Fully Customized Point Distribution')

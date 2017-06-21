@@ -13,6 +13,7 @@ class Character(object):
 class Player(Character):
     """Player objects and functions"""
 
+    @staticmethod
     def factory(pclass):  # build the factory to call the subclass modifiers for the chosen class
         if pclass == 'Warrior':
             return Warrior()
@@ -26,7 +27,20 @@ class Player(Character):
             return Monk()
         assert 0, "Bad Player Subclass Creation, check factory."
 
-    factory = staticmethod(factory)
+    @staticmethod
+    def info_factory(pclass):  # build a factory to call the info about the character class for players
+        if pclass == 'Warrior':
+            return Warrior().class_info()
+        if pclass == 'Wizard':
+            return Wizard().class_info()
+        if pclass == 'Paladin':
+            return Paladin().class_info()
+        if pclass == 'Priest':
+            return Priest().class_info()
+        if pclass == 'Monk':
+            return Monk().class_info()
+        else:
+            pass
 
     # Constructor
     def __init__(self, name, pclass, ctype, strength, agility, intel, wisdom, charisma, health, max_health, mana,
@@ -50,27 +64,32 @@ class Player(Character):
     def player_name(self):
         self.name = str(input('Enter your character\'s name:'))
 
+
+
 """ Start Playable Character Classes"""
 class Warrior(Player):
     """Creates a Warrior Player Object"""
     def __init__(self):
-        super().__init__(name="", pclass="", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
+        super().__init__(name="", pclass="Warrior", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
-    def class_info(self):
-        info = 'You have chosen the Warrior class.\nThey are master\'s of defense and armor and excel\n' \
-               'in front line combat.  Warriors use Strength and Agility as their primary stats.'
+    @staticmethod
+    def class_info():
+        info = 'You have chosen the Warrior class.\nThey are master\'s of defense and armor and excel' \
+               'in front line combat defending their comrades from harm.\n' \
+               'Warriors use Strength and Agility as their primary stats.'
         return info
 
 
 class Wizard(Player):
     """Creates a Wizard Player Object"""
     def __init__(self):
-        super().__init__(name="", pclass="", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
+        super().__init__(name="", pclass="Wizard", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
 
-    def class_info(self):
+    @staticmethod
+    def class_info():
         info = 'You have chosen the Wizard class.\nWizards control the four elements of the world and can\n' \
                'conjure spells that deal massive damage to their foes.  Wizards use Intelligence and Wisdom\n' \
                'as their primary stats.'
@@ -80,10 +99,11 @@ class Wizard(Player):
 class Paladin(Player):
     """Creates a Paladin Player Object"""
     def __init__(self):
-        super().__init__(name="", pclass="", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
+        super().__init__(name="", pclass="Paladin", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
 
-    def class_info(self):
+    @staticmethod
+    def class_info():
         info = 'You have chosen the Paladin class.\nDefenders of the Holy Order and keepers of the peace,\n' \
                'a Paladin mixes the raw combat power of Warriors with the holy spells of a Priest to smite\n' \
                'their enemies and maintain order in the world.  Paladins use Strength and Wisdom as their\n' \
@@ -92,18 +112,34 @@ class Paladin(Player):
 
 
 class Priest(Player):
+    """Creates a Priest Player Object"""
     def __init__(self):
-        super().__init__(name="", pclass="", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
+        super().__init__(name="", pclass="Priest", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
 
+    @staticmethod
+    def class_info():
+        info = 'You have chosen the Priest class.\nAs faithful servants of the Gods, Priests oversee\n' \
+               'the physical and spiritual health of all living creatures in the world.  Wielding divine\n' \
+               'powers, a Priest can grant the gift of live, or smite the evil within any creature.\n' \
+               'Priests use Wisdom and Intelligence as their primary stats.'
+        return info
 
 class Monk(Player):
+    """Creates a Monk Player Object"""
     def __init__(self):
-        super().__init__(name="", pclass="", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
+        super().__init__(name="", pclass="Monk", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
 
-"""Being functions for character generation and customization"""
+    @staticmethod
+    def class_info():
+        info = 'You have chosen the Monk class.\nMasters of balance and order, Monks live a lifestyle of \n' \
+               'of seclusion and meditation.  Granting them a supreme awareness of the natural flow of the\n' \
+               'world around them.  Monks use Agility and Strength as their primary stats.'
+        return info
 
+
+"""Being functions for character generation and customization"""
 
 def get_player_class():
     print('Choose your character\'s class:')
