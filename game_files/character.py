@@ -1,5 +1,4 @@
 # Imports
-import filehandler
 import random
 
 
@@ -173,13 +172,3 @@ def random_player_stats(ctype):
         for item, key in sorted(stats.items(), key=lambda x: x[0]):
             print(item.title(), key)
         return stats
-
-
-# Character Class Choice
-x = get_player_class()
-# Choose a class and call the factory
-player1 = Player.factory(x)
-
-
-
-print(player1.__dict__)

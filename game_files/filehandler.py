@@ -1,5 +1,7 @@
 """This module handles user data saving and loading"""
-import os, json, game_files.character as c
+import os
+import json
+import character
 
 # Some text formatting strings for return messages
 yellow = '\033[33m'
@@ -7,7 +9,7 @@ bold = '\033[1m'
 end_color = '\033[0m'
 
 # Some test data - uncomment to use
-player1 = c.Player("Test", "Warrior", "melee", 18, 12, 5, 5, 10, 1000, 1000, 200, 200, 65, 20, 0.22)
+# player1 = character.Player("Test", "Warrior", "melee", 18, 12, 5, 5, 10, 1000, 1000, 200, 200, 65, 20, 0.22)
 
 def absolute_path():
     # Absolute Path Variables
