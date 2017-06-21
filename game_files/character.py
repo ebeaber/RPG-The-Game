@@ -8,7 +8,7 @@ def get_player_class():
     x = [name.__name__ for name in Player.__subclasses__()]
     index = 1
     for item in x:
-        print index, ':', item
+        print(index, ':', item)
         index += 1
     choice = int(input('>>>>  ')) - 1
     return x[choice]
@@ -24,13 +24,13 @@ def custom_player_stats():
             x = int(input('\nHow many points for ' + key.title() + ': '))
             choices[key] = x
             point_pool -= x
-            print key.title() + ' has been set to', x
-            print 'You have', point_pool, 'points left.'
+            print(key.title() + ' has been set to', x)
+            print('You have', point_pool, 'points left.')
         if point_pool > 0:
-            print '\nYou didn\'t spend all your points.  Try again.'
+            print('\nYou didn\'t spend all your points.  Try again.')
             point_pool = 50
         else:
-            print 'No more points left'
+            print('No more points left')
             break
     return choices
 
@@ -63,8 +63,7 @@ def random_player_stats(ctype):
         point_pool -= choices['charisma']
 
         for key, value in choices.items():
-            print key.title() + ' has been set to', value
-
+            print(key.title() + ' has been set to', value)
 
     if ctype == "magic":
         pass
