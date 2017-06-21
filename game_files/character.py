@@ -1,7 +1,6 @@
 # Imports
 import random
 
-#Linux VCS test
 
 
 def get_player_class():
@@ -9,13 +8,14 @@ def get_player_class():
     x = [name.__name__ for name in Player.__subclasses__()]
     index = 1
     for item in x:
-        print(index, ':', item)
+        print index, ':', item
         index += 1
     choice = int(input('>>>>  ')) - 1
     return x[choice]
 
 
 def custom_player_stats():
+    """This function allows complete customization of the player stats"""
     print('Let\'s customize your character\'s stats!')
     point_pool = 50
     choices = {'strength': 0, 'agility': 0, 'intel': 0, 'wisdom': 0, 'charisma': 0}
@@ -24,23 +24,52 @@ def custom_player_stats():
             x = int(input('\nHow many points for ' + key.title() + ': '))
             choices[key] = x
             point_pool -= x
-            print(key.title() + ' has been set to', x)
-            print('You have', point_pool, 'points left.')
+            print key.title() + ' has been set to', x
+            print 'You have', point_pool, 'points left.'
         if point_pool > 0:
-            print('\nYou didn\'t spend all your points.  Try again.')
+            print '\nYou didn\'t spend all your points.  Try again.'
             point_pool = 50
         else:
-            print('No more points left')
+            print 'No more points left'
             break
     return choices
 
 def random_player_stats(ctype):
-    point_pool = 50
+    # Create an empty dictionary for the Primary stats
     choices = {'strength': 0, 'agility': 0, 'intel': 0, 'wisdom': 0, 'charisma': 0}
+
+    # Create the total points pool
+    point_pool = 50
+
+    # Define the random dividers
+    pdiv = random.uniform(1.5, 1.9)  # random float for division of pool
+    pdiv2 = random.uniform(1.5, 1.7)  # random float for division of Primary stats
+    pdiv3 = random.uniform(2.6, 3)
+
+    # Start IF statement for Melee class types
     if ctype == "melee":
-        pass
+        # Generate random stats for the primary melee stats
+        primary_points = int((point_pool / pdiv))
+        point_pool -= primary_points  # Remove Primary Stat Pool from total point_pool
+        choices['strength'] = int(primary_points / pdiv2)  # Set random Strength value
+        primary_points -= choices['strength']  # Remove Strength Value from Primary Stat Pool
+        choices['agility'] = primary_points  # Set Agility to remaining value
+        # Generate random stats for the secondary stats
+        choices['intel'] = int(point_pool / pdiv3)
+        point_pool -= choices['intel']
+        choices['wisdom'] = int(point_pool / pdiv2)
+        point_pool -= choices['wisdom']
+        choices['charisma'] = point_pool
+        point_pool -= choices['charisma']
+
+        for key, value in choices.items():
+            print key.title() + ' has been set to', value
+
+
     if ctype == "magic":
         pass
+
+random_player_stats('melee')
 
 
 class Character(object):
