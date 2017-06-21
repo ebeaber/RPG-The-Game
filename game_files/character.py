@@ -141,7 +141,6 @@ class Player(Character):
 
 
 class Warrior(Player):
-    pass
 
 
 class Wizard(Player):
