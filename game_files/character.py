@@ -14,8 +14,25 @@ def get_player_class():
 
 
 def player_stat_constructor():
+    print('Let\'s customize your character\'s stats!')
     point_pool = 50
-    print('Customize your character\'s stats. You have', point_pool, 'points to use.')
+    choices = {'strength': 0, 'agility': 0, 'intel': 0, 'wisdom': 0}
+    while point_pool > 0:
+        for key, value in choices.items():
+            x = int(input('How many points for ' + key.title() + ': '))
+            choices[key] = x
+            point_pool -= x
+            print('\n' + key.title() + ' has been set to', x)
+            print('You have', point_pool, 'points left.')
+        if point_pool > 0:
+            print('You didn\'t spend all your points.  Try again.')
+        else:
+            print('No more points left')
+            break
+    return choices
+
+x = player_stat_constructor()
+print(x)
 
 
 class Character(object):
