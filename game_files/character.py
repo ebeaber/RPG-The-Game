@@ -52,22 +52,43 @@ class Player(Character):
 
 """ Start Playable Character Classes"""
 class Warrior(Player):
+    """Creates a Warrior Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
+    def class_info(self):
+        info = 'You have chosen the Warrior class.\nThey are master\'s of defense and armor and excel\n' \
+               'in front line combat.  Warriors use Strength and Agility as their primary stats.'
+        return info
+
 
 class Wizard(Player):
+    """Creates a Wizard Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
 
+    def class_info(self):
+        info = 'You have chosen the Wizard class.\nWizards control the four elements of the world and can\n' \
+               'conjure spells that deal massive damage to their foes.  Wizards use Intelligence and Wisdom\n' \
+               'as their primary stats.'
+        return info
+
 
 class Paladin(Player):
+    """Creates a Paladin Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+
+    def class_info(self):
+        info = 'You have chosen the Paladin class.\nDefenders of the Holy Order and keepers of the peace,\n' \
+               'a Paladin mixes the raw combat power of Warriors with the holy spells of a Priest to smite\n' \
+               'their enemies and maintain order in the world.  Paladins use Strength and Wisdom as their\n' \
+               'stats'
+        return info
 
 
 class Priest(Player):
