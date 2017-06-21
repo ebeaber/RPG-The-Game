@@ -30,15 +30,15 @@ class Player(Character):
     @staticmethod
     def info_factory(pclass):  # build a factory to call the info about the character class for players
         if pclass == 'Warrior':
-            return Warrior().class_info()
+            return Warrior.class_info()
         if pclass == 'Wizard':
-            return Wizard().class_info()
+            return Wizard.class_info()
         if pclass == 'Paladin':
-            return Paladin().class_info()
+            return Paladin.class_info()
         if pclass == 'Priest':
-            return Priest().class_info()
+            return Priest.class_info()
         if pclass == 'Monk':
-            return Monk().class_info()
+            return Monk.class_info()
         else:
             pass
 
@@ -62,8 +62,7 @@ class Player(Character):
         self.crit = crit
 
     def player_name(self):
-        self.name = str(input('Enter your character\'s name:'))
-
+        self.name = str(input('Enter your character\'s name:  '))
 
 
 """ Start Playable Character Classes"""
@@ -87,6 +86,7 @@ class Wizard(Player):
     def __init__(self):
         super().__init__(name="", pclass="Wizard", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+        super().player_name()
 
     @staticmethod
     def class_info():
@@ -101,6 +101,7 @@ class Paladin(Player):
     def __init__(self):
         super().__init__(name="", pclass="Paladin", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+        super().player_name()
 
     @staticmethod
     def class_info():
@@ -116,6 +117,7 @@ class Priest(Player):
     def __init__(self):
         super().__init__(name="", pclass="Priest", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+        super().player_name()
 
     @staticmethod
     def class_info():
@@ -130,6 +132,7 @@ class Monk(Player):
     def __init__(self):
         super().__init__(name="", pclass="Monk", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+        super().player_name()
 
     @staticmethod
     def class_info():
@@ -146,7 +149,7 @@ def get_player_class():
     x = [name.__name__ for name in Player.__subclasses__()]
     index = 1
     for item in x:
-        print(index, ':', item)
+        print('\t', index, ':', item)
         index += 1
     choice = int(input('>>>>  ')) - 1
     return x[choice]
