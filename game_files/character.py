@@ -13,26 +13,32 @@ def get_player_class():
     return x[choice]
 
 
-def player_stat_constructor():
+def custom_player_stats():
     print('Let\'s customize your character\'s stats!')
     point_pool = 50
-    choices = {'strength': 0, 'agility': 0, 'intel': 0, 'wisdom': 0}
+    choices = {'strength': 0, 'agility': 0, 'intel': 0, 'wisdom': 0, 'charisma': 0}
     while point_pool > 0:
         for key, value in choices.items():
-            x = int(input('How many points for ' + key.title() + ': '))
+            x = int(input('\nHow many points for ' + key.title() + ': '))
             choices[key] = x
             point_pool -= x
-            print('\n' + key.title() + ' has been set to', x)
+            print(key.title() + ' has been set to', x)
             print('You have', point_pool, 'points left.')
         if point_pool > 0:
-            print('You didn\'t spend all your points.  Try again.')
+            print('\nYou didn\'t spend all your points.  Try again.')
+            point_pool = 50
         else:
             print('No more points left')
             break
     return choices
 
-x = player_stat_constructor()
-print(x)
+def random_player_stats(ctype):
+    point_pool = 50
+    choices = {'strength': 0, 'agility': 0, 'intel': 0, 'wisdom': 0, 'charisma': 0}
+    if ctype == "melee":
+        pass
+    if ctype == "magic":
+        pass
 
 
 class Character(object):
@@ -57,16 +63,20 @@ class Player(Character):
             return Priest()
         if pclass == 'Monk':
             return Monk()
+        assert 0, "Bad Player Subclass Creation, check factory:" + type
 
     factory = staticmethod(factory)
 
-    def __init__(self, name, strength, agility, intel, wisdom, health, max_health, mana,
+    def __init__(self, name, pclass, ctype, strength, agility, intel, wisdom, charisma, health, max_health, mana,
                  max_mana, atkpwr, magpwr, crit):
         super().__init__(name)
+        self.pclass = pclass
+        self.ctype = ctype
         self.strength = strength
         self.agility = agility
         self.intel = intel
         self.wisdom = wisdom
+        self.charisma = charisma
         self.health = health
         self.max_health = max_health
         self.mana = mana
@@ -82,14 +92,18 @@ class Player(Character):
 class Warrior(Player):
     pass
 
+
 class Wizard(Player):
     pass
+
 
 class Paladin(Player):
     pass
 
+
 class Priest(Player):
     pass
+
 
 class Monk(Player):
     pass
