@@ -1,4 +1,5 @@
 # Imports
+import filehandler
 import random
 
 
@@ -28,6 +29,7 @@ class Player(Character):
 
     factory = staticmethod(factory)
 
+    # Constructor
     def __init__(self, name, pclass, ctype, strength, agility, intel, wisdom, charisma, health, max_health, mana,
                  max_mana, atkpwr, magpwr, crit):
         super().__init__(name)
@@ -49,11 +51,12 @@ class Player(Character):
     def player_name(self):
         self.name = str(input('Enter your character\'s name:'))
 
-
+""" Start Playable Character Classes"""
 class Warrior(Player):
     def __init__(self):
         super().__init__(name="", pclass="", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
                          charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+        super().player_name()
 
 
 class Wizard(Player):
@@ -172,16 +175,11 @@ def random_player_stats(ctype):
         return stats
 
 
-def create_player():
-    player = {}
-    # Choose a class and call the factory
-    get_player_class()
-    player.name = str(input('Enter your character\'s name: '))
-    return player
+# Character Class Choice
+x = get_player_class()
+# Choose a class and call the factory
+player1 = Player.factory(x)
 
 
-# Instantiate an empty player object
-player1 = {}
 
-create_player()
 print(player1.__dict__)
