@@ -12,6 +12,11 @@ def get_player_class():
     choice = int(input('>>>>  ')) - 1
     return x[choice]
 
+def create_player():
+    # Instantiate an empty player object
+    player1 = Player(name="", pclass="", ctype="", strength=0, agility=0, intel=0, wisdom=0, charisma=0,
+                     health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+    player1.name = str(input('Enter your character\'s name: '))
 
 def custom_player_stats():
     """This function allows complete customization of the player stats"""
@@ -141,7 +146,7 @@ class Player(Character):
 
 
 class Warrior(Player):
-
+    pass
 
 class Wizard(Player):
     pass
