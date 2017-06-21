@@ -91,8 +91,6 @@ def random_player_stats(ctype):
             print(item.title(), key)
         return choices
 
-random_player_stats("melee")
-
 
 class Character(object):
     """Primary Object for all Characters in the game"""
