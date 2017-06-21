@@ -2,7 +2,6 @@
 import random
 
 
-
 def get_player_class():
     print('Choose your roll:')
     x = [name.__name__ for name in Player.__subclasses__()]
@@ -34,6 +33,7 @@ def custom_player_stats():
             break
     return choices
 
+
 def random_player_stats(ctype):
     # Create an empty dictionary for the Primary stats
     choices = {'strength': 0, 'agility': 0, 'intel': 0, 'wisdom': 0, 'charisma': 0}
@@ -46,11 +46,13 @@ def random_player_stats(ctype):
     pdiv2 = random.uniform(1.5, 1.7)  # random float for division of Primary stats
     pdiv3 = random.uniform(2.6, 3)
 
-    # Start IF statement for Melee class types
+    # Start IF statement for Melee based player classes
     if ctype == "melee":
+
         # Generate random stats for the primary melee stats
         primary_points = int((point_pool / pdiv))
         point_pool -= primary_points  # Remove Primary Stat Pool from total point_pool
+
         choices['strength'] = int(primary_points / pdiv2)  # Set random Strength value
         primary_points -= choices['strength']  # Remove Strength Value from Primary Stat Pool
         choices['agility'] = primary_points  # Set Agility to remaining value
@@ -62,13 +64,32 @@ def random_player_stats(ctype):
         choices['charisma'] = point_pool
         point_pool -= choices['charisma']
 
-        for key, value in choices.items():
-            print(key.title() + ' has been set to', value)
+        # Print the results!
+        for item, key in sorted(choices.items(), key=lambda x: x[0]):
+            print(item.title(), key)
 
+    # Start IF statement for magic based player classes
     if ctype == "magic":
-        pass
+        # Generate random stats for the primary melee stats
+        primary_points = int((point_pool / pdiv))
+        point_pool -= primary_points  # Remove Primary Stat Pool from total point_pool
 
-random_player_stats('melee')
+        choices['intel'] = int(primary_points / pdiv2)  # Set random Strength value
+        primary_points -= choices['intel']  # Remove Strength Value from Primary Stat Pool
+        choices['wisdom'] = primary_points  # Set Agility to remaining value
+
+        # Generate random stats for the secondary stats
+        choices['charisma'] = int(point_pool / pdiv3)
+        point_pool -= choices['charisma']
+        choices['strength'] = int(point_pool / pdiv2)
+        point_pool -= choices['strength']
+        choices['agility'] = point_pool
+        point_pool -= choices['agility']
+
+        # Print the results!
+        for item, key in sorted(choices.items(), key=lambda x: x[0]):
+            print(item.title(), key)
+        return choices
 
 
 class Character(object):
