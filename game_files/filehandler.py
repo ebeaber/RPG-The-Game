@@ -1,7 +1,7 @@
 """This module handles user data saving and loading"""
 import os
 import json
-from character import Player
+import character
 
 # Some text formatting strings for return messages
 yellow = '\033[33m'
@@ -9,7 +9,7 @@ bold = '\033[1m'
 end_color = '\033[0m'
 
 # Some test data - uncomment to use
-# player1 = Player("Moron001", "Wizard", 200, 1250, 110, 40, 2, 1490)
+# player1 = character.Player("Test", "Warrior", "melee", 18, 12, 5, 5, 10, 1000, 1000, 200, 200, 65, 20, 0.22)
 
 def absolute_path():
     # Absolute Path Variables
@@ -58,6 +58,7 @@ def load_player_data(player):
             player = json.load(infile)
         return player
 
+save_player_data(player1)
 
 """
           "\"Listen. Strange women lying in ponds distributing swords is\n"
