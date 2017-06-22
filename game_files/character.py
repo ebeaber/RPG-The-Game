@@ -1,5 +1,5 @@
 # Imports
-import random
+from dice import roll_dice
 
 # Add New Branch
 
@@ -72,7 +72,23 @@ class Player(Character):
         return [self.strength, self.agility, self.intel, self.wisdom, self.con]
 
     def secondary_stats(self):
-        return [self.health, self.mana, self.atkpower, self.magpwr, self.crit, self.energy]
+        return [self.health, self.mana, self.atkpower, self.magpwr, self.crit, self.energy, self.defense]
+
+    @staticmethod
+    def primary_stat_roll():
+        good_roll = False
+        a = []
+        while not good_roll:
+            for i in range(6):
+                x = roll_dice(4, 6)
+                x.remove(min(x))
+                a.append(int(sum(x)))
+            if max(a) > 13:
+                good_roll = True
+            else:
+                a.clear()
+        return a
+
 
 """ Start Playable Character Classes"""
 
