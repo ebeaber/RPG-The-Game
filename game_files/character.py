@@ -44,7 +44,7 @@ class Player(Character):
             pass
 
     # Constructor
-    def __init__(self, name, pclass, ctype, strength, agility, intel, wisdom, constitution, health, max_health,
+    def __init__(self, name, pclass, ctype, strength, agility, intel, wisdom, con, health, max_health,
                  mana, max_mana, energy, max_energy, atkpwr, magpwr, crit):
         super().__init__(name)
         self.pclass = pclass
@@ -53,7 +53,7 @@ class Player(Character):
         self.agility = agility
         self.intel = intel
         self.wisdom = wisdom
-        self.charisma = constitution
+        self.con = con
         self.health = health
         self.max_health = max_health
         self.mana = mana
@@ -75,7 +75,7 @@ class Warrior(Player):
     """Creates a Warrior Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="Warrior", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
-                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         con=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
                          atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
@@ -91,7 +91,7 @@ class Wizard(Player):
     """Creates a Wizard Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="Wizard", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
-                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         con=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
                          atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
@@ -107,7 +107,7 @@ class Paladin(Player):
     """Creates a Paladin Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="Paladin", ctype="hybrid", strength=0, agility=0, intel=0, wisdom=0,
-                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         con=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
                          atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
@@ -124,7 +124,7 @@ class Priest(Player):
     """Creates a Priest Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="Priest", ctype="hybrid", strength=0, agility=0, intel=0, wisdom=0,
-                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         con=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
                          atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
@@ -141,7 +141,7 @@ class Monk(Player):
     """Creates a Monk Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="Monk", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
-                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         con=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
                          atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
