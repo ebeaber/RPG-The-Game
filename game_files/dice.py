@@ -12,13 +12,13 @@ def roll_dice(rolls, dice):
 
 
 # TODO Let's redo the character stat generation logic
-# x = character.get_player_class()  # create a variable for the subclasses of the Player object
-player1 = Player.factory("Warrior")  # Call the Player Object Factory and create a player
-# class_info = Player.info_factory(x)  # Fetch the information on the chosen character class for the player.
-# print('The Player', player1.__dict__)
+x = character.get_player_class()  # create a variable for the subclasses of the Player object
+player1 = Player.factory(x)  # Call the Player Object Factory and create a player
+class_info = Player.info_factory(x)  # Fetch the information on the chosen character class for the player.
+
+
 # Start setting statistics
 # Roll four D6 and remove the lowest value. Repeat this process 5 times.
-
 def primary_stat_roll():
     good_roll = False
     a = []
@@ -33,20 +33,6 @@ def primary_stat_roll():
             a.clear()
     return a
 
-a = primary_stat_roll()
-b = [player1.strength, player1.agility, player1.intel, player1.wisdom, player1.con]
-print(b[0])
-'''
-while len(a) > 0:
-    print('You have the following stats to use:')
-    index = 1
-    for i in a:
-        print('Roll', index, ':', i)
-        index += 1
-    print('Enter the roll you would like to assign to', b[0])
-    choice = int(input('>>> ')) - 1
-    b[0] = a.pop(choice)
-'''
-
-print(player1.__dict__)
-
+rolled_stats = primary_stat_roll()
+print(rolled_stats)
+print(player1.primary_stats().__dict__)
