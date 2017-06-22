@@ -61,3 +61,4 @@ class Player(Character):
 
 # TODO Work on Dictionaries, Tuples and Lists for Characters: Race, Class, Stats, Bonuses, Abilities, Spells, etc
 
+player_races
