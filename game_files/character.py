@@ -44,8 +44,8 @@ class Player(Character):
             pass
 
     # Constructor
-    def __init__(self, name, pclass, ctype, strength, agility, intel, wisdom, charisma, health, max_health, mana,
-                 max_mana, atkpwr, magpwr, crit):
+    def __init__(self, name, pclass, ctype, strength, agility, intel, wisdom, constitution, health, max_health,
+                 mana, max_mana, energy, max_energy, atkpwr, magpwr, crit):
         super().__init__(name)
         self.pclass = pclass
         self.ctype = ctype
@@ -53,11 +53,13 @@ class Player(Character):
         self.agility = agility
         self.intel = intel
         self.wisdom = wisdom
-        self.charisma = charisma
+        self.charisma = constitution
         self.health = health
         self.max_health = max_health
         self.mana = mana
         self.max_mana = max_mana
+        self.energy = energy
+        self.max_energy = max_energy
         self.atkpower = atkpwr
         self.magpwr = magpwr
         self.crit = crit
@@ -73,7 +75,8 @@ class Warrior(Player):
     """Creates a Warrior Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="Warrior", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
-                         charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
     @staticmethod
@@ -88,7 +91,8 @@ class Wizard(Player):
     """Creates a Wizard Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="Wizard", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
-                         charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
     @staticmethod
@@ -102,8 +106,9 @@ class Wizard(Player):
 class Paladin(Player):
     """Creates a Paladin Player Object"""
     def __init__(self):
-        super().__init__(name="", pclass="Paladin", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
-                         charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+        super().__init__(name="", pclass="Paladin", ctype="hybrid", strength=0, agility=0, intel=0, wisdom=0,
+                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
     @staticmethod
@@ -118,8 +123,9 @@ class Paladin(Player):
 class Priest(Player):
     """Creates a Priest Player Object"""
     def __init__(self):
-        super().__init__(name="", pclass="Priest", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
-                         charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+        super().__init__(name="", pclass="Priest", ctype="hybrid", strength=0, agility=0, intel=0, wisdom=0,
+                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
     @staticmethod
@@ -130,11 +136,13 @@ class Priest(Player):
                'Priests use Wisdom and Intelligence as their primary stats.'
         return info
 
+
 class Monk(Player):
     """Creates a Monk Player Object"""
     def __init__(self):
         super().__init__(name="", pclass="Monk", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
-                         charisma=0, health=0, max_health=0, mana=0, max_mana=0, atkpwr=0, magpwr=0, crit=0)
+                         constitution=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
+                         atkpwr=0, magpwr=0, crit=0)
         super().player_name()
 
     @staticmethod
@@ -147,6 +155,7 @@ class Monk(Player):
 
 """Being functions for character generation and customization"""
 
+
 def get_player_class():
     print('Choose your character\'s class:')
     x = [name.__name__ for name in Player.__subclasses__()]
@@ -157,7 +166,7 @@ def get_player_class():
     choice = int(input('>>>>  ')) - 1
     return x[choice]
 
-
+'''
 def custom_player_stats():
     """This function allows complete customization of the player stats"""
     print('Let\'s customize your character\'s stats!')
@@ -236,4 +245,4 @@ def random_player_stats(ctype):
             print(item.title(), key)
         return stats
 
-random_player_stats("melee")
+'''
