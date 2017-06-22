@@ -1,6 +1,7 @@
 # Imports
 import random
 
+# Add New Branch
 
 class Character(object):
     """Primary Object for all Characters in the game"""
