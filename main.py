@@ -14,7 +14,14 @@ class_info = character.Player.info_factory(x)  # Fetch the information on the ch
 # Customize stats logic here
 # TODO Create the logic to have the player customize their stats and overwrite player key values
 
+# TODO Discuss the logical flow of character creation:
+"""
+#1: 
+Should we first gather the stat numbers and then build the players Character class object?
+
+"""
 
 print(player1.__dict__)  # for testing purposes only
-#Save the data!
+
+# Save the data!
 # FIXME fix the file handler to correctly save the player data after creation
