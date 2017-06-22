@@ -235,3 +235,5 @@ def random_player_stats(ctype):
         for item, key in sorted(stats.items(), key=lambda x: x[0]):
             print(item.title(), key)
         return stats
+
+random_player_stats("melee")
