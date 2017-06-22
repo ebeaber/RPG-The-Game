@@ -12,6 +12,8 @@ def roll_dice(rolls, dice):
 
 
 # TODO Let's redo the character stat generation logic
+
+'''These are temporary from the main file.  Remove after code complete.'''
 # x = character.get_player_class()  # create a variable for the subclasses of the Player object
 player1 = Player.factory("Warrior")  # Call the Player Object Factory and create a player
 # class_info = Player.info_factory(x)  # Fetch the information on the chosen character class for the player.
@@ -34,8 +36,9 @@ def primary_stat_roll():
     return a
 
 a = primary_stat_roll()
-b = [player1.strength, player1.agility, player1.intel, player1.wisdom, player1.con]
-print(b[0])
+b = {player1['strength'], player1['agility'], player1['intel'], player1['wisdom'], player1['con']}
+
+# TODO Fix this While loop to pull the name for the stat and assign the number
 '''
 while len(a) > 0:
     print('You have the following stats to use:')
