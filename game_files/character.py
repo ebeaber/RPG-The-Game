@@ -45,7 +45,7 @@ class Player(Character):
 
     # Constructor
     def __init__(self, name, pclass, ctype, strength, agility, intel, wisdom, con, health, max_health,
-                 mana, max_mana, energy, max_energy, atkpwr, magpwr, crit):
+                 mana, max_mana, energy, max_energy, defense, atkpwr, magpwr, crit):
         super().__init__(name)
         self.pclass = pclass
         self.ctype = ctype
@@ -60,6 +60,7 @@ class Player(Character):
         self.max_mana = max_mana
         self.energy = energy
         self.max_energy = max_energy
+        self.defense = defense
         self.atkpower = atkpwr
         self.magpwr = magpwr
         self.crit = crit
@@ -67,6 +68,11 @@ class Player(Character):
     def player_name(self):
         self.name = str(input('Enter your character\'s name:  '))
 
+    def primary_stats(self):
+        return [self.strength, self.agility, self.intel, self.wisdom, self.con]
+
+    def secondary_stats(self):
+        return [self.health, self.mana, self.atkpower, self.magpwr, self.crit, self.energy]
 
 """ Start Playable Character Classes"""
 
@@ -76,7 +82,7 @@ class Warrior(Player):
     def __init__(self):
         super().__init__(name="", pclass="Warrior", ctype="melee", strength=0, agility=0, intel=0, wisdom=0,
                          con=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
-                         atkpwr=0, magpwr=0, crit=0)
+                         atkpwr=0, magpwr=0, crit=0, defense=0)
         super().player_name()
 
     @staticmethod
@@ -92,7 +98,7 @@ class Wizard(Player):
     def __init__(self):
         super().__init__(name="", pclass="Wizard", ctype="magic", strength=0, agility=0, intel=0, wisdom=0,
                          con=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
-                         atkpwr=0, magpwr=0, crit=0)
+                         atkpwr=0, magpwr=0, crit=0, defense=0)
         super().player_name()
 
     @staticmethod
@@ -108,7 +114,7 @@ class Paladin(Player):
     def __init__(self):
         super().__init__(name="", pclass="Paladin", ctype="hybrid", strength=0, agility=0, intel=0, wisdom=0,
                          con=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
-                         atkpwr=0, magpwr=0, crit=0)
+                         atkpwr=0, magpwr=0, crit=0, defense=0)
         super().player_name()
 
     @staticmethod
@@ -125,7 +131,7 @@ class Priest(Player):
     def __init__(self):
         super().__init__(name="", pclass="Priest", ctype="hybrid", strength=0, agility=0, intel=0, wisdom=0,
                          con=0, health=0, max_health=0, mana=0, max_mana=0, energy=0, max_energy=0,
-                         atkpwr=0, magpwr=0, crit=0)
+                         atkpwr=0, magpwr=0, crit=0, defense=0)
         super().player_name()
 
     @staticmethod
