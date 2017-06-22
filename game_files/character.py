@@ -66,6 +66,8 @@ class Player(Character):
 
 
 """ Start Playable Character Classes"""
+
+
 class Warrior(Player):
     """Creates a Warrior Player Object"""
     def __init__(self):
