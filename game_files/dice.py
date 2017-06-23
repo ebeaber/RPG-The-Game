@@ -24,5 +24,3 @@ def primary_stat_roll():
         else:
             a.clear()
     return a
-
-
