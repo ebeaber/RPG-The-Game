@@ -1,6 +1,6 @@
 # Imports
 from dice import roll_dice
-
+import random
 
 class Character(object):
     """Primary Object for all Character objects in the game"""
@@ -14,8 +14,8 @@ class Player(Character):
     """Player objects and functions"""
 
     # Constructor
-    def __init__(self, name, race, pclass, ctype, strength, agility, intel, wisdom,
-                 constitution, health, max_health, mana, max_mana, energy,
+    def __init__(self, name, race, pclass, ctype, strength, agility, intelligence,
+                 wisdom, constitution, health, max_health, mana, max_mana, energy,
                  max_energy, defense, atkpwr, magpwr, crit):
         super().__init__(name)
         self.race = race
@@ -23,7 +23,7 @@ class Player(Character):
         self.ctype = ctype
         self.strength = strength
         self.agility = agility
-        self.intel = intel
+        self.intelligence = intelligence
         self.wisdom = wisdom
         self.constitution = constitution
         self.health = health
@@ -54,11 +54,11 @@ class Player(Character):
 racial_modifiers = dict()
 # {"Strength": , "Agility": , "Intel": ,
 #  "Wisdom": , "Constitution": }
-racial_modifiers["Human"] = {"Strength": 1, "Agility": 1, "Intel": 1,
+racial_modifiers["Human"] = {"Strength": 1, "Agility": 1, "Intelligence": 1,
                              "Wisdom": 1, "Constitution": 1}
-racial_modifiers["Elf"] = {"Strength": 0, "Agility": 1, "Intel": 2,
+racial_modifiers["Elf"] = {"Strength": 0, "Agility": 1, "Intelligence": 2,
                            "Wisdom": 1, "Constitution": 0}
-racial_modifiers["Halfling"] = {"Strength": -1, "Agility": 2, "Intel": 0,
+racial_modifiers["Halfling"] = {"Strength": -1, "Agility": 2, "Intelligence": 0,
                                 "Wisdom": 0, "Constitution": -1}
 
 # Armor Types, Skill to use, and armor class
@@ -109,7 +109,6 @@ def primary_stat_roll():
             a.clear()
     return a
 
-
 def choose_race():
     # Prompt for and return Character Race as a global
     global race
@@ -126,10 +125,42 @@ def choose_class():
     pclass = str(input('Type in the class you\'d like to play: '))
     return pclass.title()
 
+def generate_stats(racial_modifiers):
+    # Methods to generate stat scores
+    scores = primary_stat_roll() # 4D6 - lowest * 5
+
+    #End score generation method
+    stat_names = ["Strength", "Agility", "Constitution",
+               "Intelligence", "Wisdom"]
+    player_stats = dict()
+    for j in range(5):  # loop through the six specific abilities
+        print("\nRemaining scores to choose from are:")
+        print(scores)
+        thismod = racial_modifiers[stat_names[j]]
+        if thismod != 0:
+            if thismod > 0:
+                thismodtxt = "+" + str(thismod)
+            else:
+                thismodtxt = str(thismod)
+            print('''\nA {0} racial increase will be added for {1}.
+                  '''.format(thismodtxt, stat_names[j]))
+        thisscore = -99
+        while thisscore not in scores:
+            thisscore = int(input("Choose score for " + stat_names[j] + ": "))
+        player_stats[stat_names[j]] = thisscore + thismod  # assign score to ability
+        thisind = scores.index(thisscore)
+        del scores[thisind]  # remove score from collection
+    return player_stats
+
+
+
+
+
 # build the player dictionary before passing to Object
 player = dict()
 player['race'] = choose_race()
 player['pclass'] = choose_class()
+player_stats = generate_stats(racial_modifiers[player['race']])
+print(player_stats)
 
-
-print(player)
+print('Current Player Dict', player)
