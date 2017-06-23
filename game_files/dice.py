@@ -1,11 +1,11 @@
 import random
 
 
-def roll_dice(rolls, dice):
+def roll_dice(rolls, sides):
     """Enter the number of rolls to be performed and the number of sides on the dice"""
     results = []
     for i in range(rolls):
-        roll = random.randint(1, dice)
+        roll = random.randint(1, sides)
         results.append(roll)
     return results
 

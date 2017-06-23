@@ -14,10 +14,11 @@ class Player(Character):
     """Player objects and functions"""
 
     # Constructor
-    def __init__(self, name, pclass, ctype, strength, agility, intel, wisdom,
+    def __init__(self, name, race, pclass, ctype, strength, agility, intel, wisdom,
                  constitution, health, max_health, mana, max_mana, energy,
                  max_energy, defense, atkpwr, magpwr, crit):
         super().__init__(name)
+        self.race = race
         self.pclass = pclass
         self.ctype = ctype
         self.strength = strength
@@ -68,6 +69,9 @@ armortypes = {'Padded Cloth': ('light armor', 10),
               'Splint Armor': ('heavy armor', 16),
               'Full Plate Armor': ('heavy armor', 18)}
 
+#dictionary of Character classes (pclass) and class type (ctype)
+character_classes = {'Warrior': 'Melee', 'Paladin': 'Hybrid', 'Wizard': 'Magic'}
+
 # Melee Attacks
 melee_attacks = dict()
 # Define attack, Class to use and base dmg
@@ -107,13 +111,25 @@ def primary_stat_roll():
 
 
 def choose_race():
-    index = 1
+    # Prompt for and return Character Race as a global
+    global race
     for i in racial_modifiers.keys():
-        print(index, '-', i)
-        index += 1
-    choice = int(input('Choose the number for your race: '))
+        print('>> ', i)
+    race = str(input('Type in the race you\'d like to play: '))
+    return race.title()
 
-x = choose_race()
-print(x)
-print(racial_modifiers['Human'])
-print(racial_modifiers[x])
+def choose_class():
+    # Prompt for and return Character Class as a global
+    global pclass
+    for i in character_classes:
+        print('>> ', i)
+    pclass = str(input('Type in the class you\'d like to play: '))
+    return pclass.title()
+
+# build the player dictionary before passing to Object
+player = dict()
+player['race'] = choose_race()
+player['pclass'] = choose_class()
+
+
+print(player)
