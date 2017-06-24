@@ -45,10 +45,6 @@ class Player(Character):
         self.name = str(input('Enter your character\'s name:  '))
 
 
-# TODO Work on Dictionaries, Tuples and Lists for Characters: Race, Class, Stats,
-# TODO Bonuses, Abilities, Spells, etc
-
-
 # Racial Modifiers
 racial_modifiers = dict()
 # {"Strength": , "Agility": , "Intel": ,
@@ -152,7 +148,7 @@ def generate_stats(racial_modifiers):
     return player_stats
 
 
-
+'''
 ### BEGIN BUILD SCRIPT ###
 # build the player dictionary before passing to Object
 
@@ -162,5 +158,7 @@ player['pclass'] = choose_class()  # choose a class
 player_stats = generate_stats(racial_modifiers[player['race']])  # Roll for stats
 player = {**player, **player_stats}  # combine stats into player dict
 
-
 print('Current Player Dict', player)
+
+# TODO Start basic combat module for melee
+'''
