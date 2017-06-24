@@ -147,12 +147,12 @@ def generate_stats(racial_modifiers):
         del scores[thisind]  # remove score from collection
     return player_stats
 
-
-'''
 ### BEGIN BUILD SCRIPT ###
 # build the player dictionary before passing to Object
 
-player = dict() # this will be passed to the Player object
+player = dict() # this will be passe
+
+'''d to the Player object
 player['race'] = choose_race()  # choose a race
 player['pclass'] = choose_class()  # choose a class
 player_stats = generate_stats(racial_modifiers[player['race']])  # Roll for stats

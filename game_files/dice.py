@@ -24,3 +24,11 @@ def primary_stat_roll():
         else:
             a.clear()
     return a
+
+def enemy_stat_roll():
+    """Rolls 3 D6 and sums total"""
+    a = []
+    for i in range(6):
+        x = roll_dice(3, 6)
+        a.append(int(sum(x)))
+    return a
