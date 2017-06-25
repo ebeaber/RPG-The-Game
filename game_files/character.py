@@ -150,9 +150,9 @@ def generate_stats(racial_modifiers):
 ### BEGIN BUILD SCRIPT ###
 # build the player dictionary before passing to Object
 
-player = dict() # this will be passe
+player = dict()
 
-'''d to the Player object
+
 player['race'] = choose_race()  # choose a race
 player['pclass'] = choose_class()  # choose a class
 player_stats = generate_stats(racial_modifiers[player['race']])  # Roll for stats
@@ -161,4 +161,3 @@ player = {**player, **player_stats}  # combine stats into player dict
 print('Current Player Dict', player)
 
 # TODO Start basic combat module for melee
-'''
