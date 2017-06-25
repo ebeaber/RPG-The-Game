@@ -76,5 +76,3 @@ def create_enemy_object():
     # return stats as an Enemy object
     return Enemy(name, enemy['Strength'], enemy['Agility'],
                  enemy['Intelligence'], enemy['Wisdom'], enemy['Constitution'])
-
-print(create_enemy_object())
