@@ -54,3 +54,5 @@ def modified_enemy_stats():
     return enemy_stats
 
 # TODO MAKE SURE ERIC CAN GITHUB
+
+print('Enemy Stats', modified_enemy_stats())
