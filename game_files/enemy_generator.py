@@ -30,6 +30,17 @@ size_modifiers['boss'] = {'Strength': 5, 'Agility': 5, 'Intelligence': 5,
                           'Wisdom': 5, 'Constitution': 5}
 
 
+def random_enemy_size():
+    x = sorted(list(set(enemies.values())))
+    sizes = len(x) - 1
+    odds = round(random(), 3)
+    if odds >= 0.980:
+        return x[0]
+    else:
+        return [x[randint(1, sizes)]]
+
+
+
 def random_enemy_modifier():
     x = (sorted(list(set(enemies.values()))))  # get all enemy sizes
     odds = round(random(), 3)
@@ -53,6 +64,4 @@ def modified_enemy_stats():
         del scores[score_index]
     return enemy_stats
 
-# TODO MAKE SURE ERIC CAN GITHUB
-
-print('Enemy Stats', modified_enemy_stats())
+# TODO Complete the Enemy Generator
