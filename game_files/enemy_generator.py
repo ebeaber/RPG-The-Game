@@ -53,3 +53,4 @@ def modified_enemy_stats():
         del scores[score_index]
     return enemy_stats
 
+# TODO MAKE SURE ERIC CAN GITHUB
