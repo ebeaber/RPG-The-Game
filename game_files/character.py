@@ -15,7 +15,7 @@ class Player(Character):
 
     # Constructor
     def __init__(self, name, race, pclass, ctype, strength, agility, intelligence,
-                 wisdom, constitution, health, max_health, mana, max_mana):
+                 wisdom, constitution):
         super().__init__(name)
         self.race = race
         self.pclass = pclass
@@ -25,38 +25,31 @@ class Player(Character):
         self.intelligence = intelligence
         self.wisdom = wisdom
         self.constitution = constitution
-        self.health = health
-        self.max_health = max_health
-        self.mana = mana
-        self.max_mana = max_mana
-        self.energy = energy
-        self.max_energy = max_energy
-        self.defense = defense
-        self.atkpower = atkpwr
-        self.magpwr = magpwr
-        self.crit = crit
+        #self.health = health
+        #self.max_health = max_health
+        #self.mana = mana
+        #self.max_mana = max_mana
+        #self.energy = energy
+        #self.max_energy = max_energy
+        #self.defense = defense
+        #self.atkpower = atkpwr
+        #self.magpwr = magpwr
+        #self.crit = crit
 
     # Deconstructor!
-    @staticmethod
-    def del_player():
+    def del_player(self):
         del Player
-
-    @staticmethod
-    def calculate_player_hp():
-        # con + (base *(level ^ factor)
-        pass
-
 
 # Racial Modifiers
 racial_modifiers = dict()
 # {"Strength": , "Agility": , "Intel": ,
 #  "Wisdom": , "Constitution": }
-racial_modifiers["Human"] = {"Strength": 1, "Agility": 1, "Intelligence": 1,
-                             "Wisdom": 1, "Constitution": 1}
-racial_modifiers["Elf"] = {"Strength": 0, "Agility": 1, "Intelligence": 2,
-                           "Wisdom": 1, "Constitution": 0}
-racial_modifiers["Halfling"] = {"Strength": -1, "Agility": 2, "Intelligence": 0,
-                                "Wisdom": 0, "Constitution": -1}
+racial_modifiers["Human"] = {"strength": 1, "agility": 1, "intelligence": 1,
+                             "wisdom": 1, "constitution": 1}
+racial_modifiers["Elf"] = {"strength": 0, "agility": 1, "intelligence": 2,
+                           "wisdom": 1, "constitution": 0}
+racial_modifiers["Halfling"] = {"strength": -1, "agility": 2, "intelligence": 0,
+                                "wisdom": 0, "constitution": -1}
 
 # Armor Types, Skill to use, and armor class
 armortypes = {'Padded Cloth': ('light armor', 10),
@@ -127,8 +120,8 @@ def generate_stats(racial_modifiers):
     scores = primary_stat_roll() # 4D6 - lowest * 5
     print('The dice have been rolled!')
     #End score generation method
-    stat_names = ["Strength", "Agility", "Constitution",
-               "Intelligence", "Wisdom"]
+    stat_names = ["strength", "agility", "constitution",
+               "intelligence", "wisdom"]
     player_stats = dict()
     for j in range(5):  # loop through the specific abilities
         print("Scores to choose from are:")
@@ -149,14 +142,30 @@ def generate_stats(racial_modifiers):
         del scores[thisind]  # remove score from collection
     return player_stats
 
+
+def player_health(constitution, level):
+    # TODO update base HP to dice roll??
+    base = constitution  # set a base increase in hp
+    factor = 1.3  # set the factor curve 1.8 or lower
+    hp = int(constitution + (base * (level ** factor)))
+    return hp
+
 ### BEGIN BUILD SCRIPT ###
 # build the player dictionary before passing to Object
-print('{0:=^90}'.format(' RPG The Game '))
-player = dict()
-player['name'] = input('Enter your character\'s name: ')
-player['race'] = choose_race()  # choose a race
-player['pclass'] = choose_class()  # choose a class
-player_stats = generate_stats(racial_modifiers[player['race']])  # Roll for stats
-player = {**player, **player_stats}  # combine stats into player dict
 
-print('Current Player Dict', player)
+
+def build_new_player():
+    print('{0:=^90}'.format(' RPG The Game '))
+    player = dict()
+    player['level'] = 1  # New Characters start at level 1
+    player['experience'] = 0  # Dream on greenhorn.  0 XP to start
+    player['name'] = input('Enter your character\'s name: ')  # .... duh
+    player['race'] = choose_race()  # choose a race
+    player['pclass'] = choose_class()  # choose a class
+    player_stats = generate_stats(racial_modifiers[player['race']])  # Roll for stats
+    player = {**player, **player_stats}  # combine stats into player dict
+    player['health'] = player_health(player['constitution'], player['level'])
+    player['max_health'] = player['health']
+
+    print('Current Player Dict', player)
+
