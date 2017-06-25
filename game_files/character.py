@@ -41,6 +41,12 @@ class Player(Character):
     def del_player():
         del Player
 
+    @staticmethod
+    def calculate_player_hp():
+        # con + (base *(level ^ factor)
+        pass
+
+
 # Racial Modifiers
 racial_modifiers = dict()
 # {"Strength": , "Agility": , "Intel": ,
