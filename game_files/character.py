@@ -41,10 +41,6 @@ class Player(Character):
     def del_player():
         del Player
 
-    def player_name(self):
-        self.name = str(input('Enter your character\'s name:  '))
-
-
 # Racial Modifiers
 racial_modifiers = dict()
 # {"Strength": , "Agility": , "Intel": ,
@@ -123,13 +119,13 @@ def choose_class():
 def generate_stats(racial_modifiers):
     # Methods to generate stat scores
     scores = primary_stat_roll() # 4D6 - lowest * 5
-
+    print('The dice have been rolled!')
     #End score generation method
     stat_names = ["Strength", "Agility", "Constitution",
                "Intelligence", "Wisdom"]
     player_stats = dict()
-    for j in range(5):  # loop through the six specific abilities
-        print("\nRemaining scores to choose from are:")
+    for j in range(5):  # loop through the specific abilities
+        print("Scores to choose from are:")
         print(scores)
         thismod = racial_modifiers[stat_names[j]]
         if thismod != 0:
@@ -149,13 +145,12 @@ def generate_stats(racial_modifiers):
 
 ### BEGIN BUILD SCRIPT ###
 # build the player dictionary before passing to Object
-'''
+print('{0:=^90}'.format(' RPG The Game '))
 player = dict()
+player['name'] = input('Enter your character\'s name: ')
 player['race'] = choose_race()  # choose a race
 player['pclass'] = choose_class()  # choose a class
 player_stats = generate_stats(racial_modifiers[player['race']])  # Roll for stats
 player = {**player, **player_stats}  # combine stats into player dict
 
 print('Current Player Dict', player)
-'''
-# TODO Start basic combat module for melee
