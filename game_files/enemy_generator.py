@@ -1,7 +1,9 @@
-import dice, random
+import dice
+from random import random, randint
 from character import Character
 
 # TODO Create enemies to continue combat module....
+
 
 class Enemy(Character):
     def __init__(self, name, strength, agility, intelligence, wisdom, constitution):
@@ -28,12 +30,21 @@ size_modifiers['boss'] = {'Strength': 5, 'Agility': 5, 'Intelligence': 5,
                           'Wisdom': 5, 'Constitution': 5}
 
 
-def random_enemy_stats():
+def random_enemy_modifier():
+    x = (sorted(list(set(enemies.values()))))  # get all enemy sizes
+    odds = round(random(), 3)
+    if odds >= 0.980:
+        return size_modifiers[x[0]]
+    else:
+        return size_modifiers[x[randint(1, 3)]]
+
+
+def modified_enemy_stats():
     scores = sorted(dice.enemy_stat_roll())
     stat_names = ['Strength', 'Agility', 'Intelligence', 'Wisdom', 'Constitution']
     enemy_stats = dict()
     for j in range(5):
-        enemy_modifier = size_modifiers[stat_names[j]]
+        enemy_modifier = random_enemy_modifier()[stat_names[j]]
         thisscore = -99
         while thisscore not in scores:
             thisscore = scores[-1]
@@ -41,17 +52,4 @@ def random_enemy_stats():
         score_index = scores.index(thisscore)
         del scores[score_index]
     return enemy_stats
-
-stat_names = ['Strength', 'Agility', 'Intelligence', 'Wisdom', 'Constitution']
-print(size_modifiers['small'])
-print([size_modifiers['small'][stat_names[0]]])
-
-
-def ran_enemy_size():
-    x = (sorted(list(set(enemies.values()))))  # get all enemy sizes
-    boss_odds = .99
-    if random > boss_odds:
-        return x[0]
-    else:
-        return x[random.randint[1,3]]
 
