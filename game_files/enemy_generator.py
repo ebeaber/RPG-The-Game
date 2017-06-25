@@ -31,37 +31,50 @@ size_modifiers['boss'] = {'Strength': 5, 'Agility': 5, 'Intelligence': 5,
 
 
 def random_enemy_size():
-    x = sorted(list(set(enemies.values())))
-    sizes = len(x) - 1
-    odds = round(random(), 3)
-    if odds >= 0.980:
-        return x[0]
+    x = sorted(list(set(enemies.values())))  # make a sorted list of sizes
+    odds = round(random(), 3)  # float value for odds
+    if odds >= 0.980:  # compare float to boss chance value (currently 2%)
+        return x[0]  # return boss
     else:
-        return [x[randint(1, sizes)]]
+        return x[randint(1, len(x) - 1)]  # return random size if not boss
 
 
+def random_enemy_name(size):
+    # list of names based on size return input
+    x = list({k for k, v in enemies.items() if v == size})
+    # get a random name for the enemy from the filtered list
+    name = x[randint(0, len(x) - 1)]
+    # return that name
+    return name
 
-def random_enemy_modifier():
-    x = (sorted(list(set(enemies.values()))))  # get all enemy sizes
-    odds = round(random(), 3)
-    if odds >= 0.980:
-        return size_modifiers[x[0]]
-    else:
-        return size_modifiers[x[randint(1, 3)]]
+
+def enemy_modifier(size):
+    return size_modifiers[size]  # return the modifiers for the size
 
 
-def modified_enemy_stats():
-    scores = sorted(dice.enemy_stat_roll())
+def modified_enemy_stats(modifier):
+    scores = dice.enemy_stat_roll()  # roll some random stats
     stat_names = ['Strength', 'Agility', 'Intelligence', 'Wisdom', 'Constitution']
     enemy_stats = dict()
     for j in range(5):
-        enemy_modifier = random_enemy_modifier()[stat_names[j]]
+        enemy_mods = modifier[stat_names[j]]
         thisscore = -99
         while thisscore not in scores:
             thisscore = scores[-1]
-        enemy_stats[stat_names[j]] = thisscore + enemy_modifier  # assign mods to score
+        enemy_stats[stat_names[j]] = thisscore + enemy_mods  # assign mods to score
         score_index = scores.index(thisscore)
         del scores[score_index]
     return enemy_stats
 
-# TODO Complete the Enemy Generator
+
+def create_enemy_object():
+    size = random_enemy_size()  # get a random size
+    name = random_enemy_name(size)  # get a random name based on size
+    mods = enemy_modifier(size)  # get the size modifier
+    stats = (modified_enemy_stats(mods))  #apply mod and get new random stats
+    enemy = {**stats}  # create dict for stats
+    # return stats as an Enemy object
+    return Enemy(name, enemy['Strength'], enemy['Agility'],
+                 enemy['Intelligence'], enemy['Wisdom'], enemy['Constitution'])
+
+print(create_enemy_object())
