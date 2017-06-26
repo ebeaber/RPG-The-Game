@@ -1,6 +1,6 @@
 """This module handles user data saving and loading"""
 import os
-import json
+import platform
 import character
 
 # Some text formatting strings for return messages
@@ -9,72 +9,63 @@ bold = '\033[1m'
 end_color = '\033[0m'
 
 # Some test data - uncomment to use
-# player1 = character.Player("Test", "Warrior", "melee", 18, 12, 5, 5, 10, 1000, 1000, 200, 200, 65, 20, 0.22)
-
-def absolute_path():
-    # Absolute Path Variables
-    abspath = os.path.abspath(__file__)
-    dname = os.path.dirname(abspath)
-    os.chdir(dname)
+player1 = character.Player('TestSave', 'Human', 'Warrior', 'melee',
+                           18, 17, 16, 15, 14, 25, 25, 20, 20, 22, 22,
+                           {'Padded Armor': 'armor', 'Long Sword':
+                            'pri_weapon', 'rubles': 200})
 
 
-# Create a function to just save the damn data
-def save_player_data(player):
-    absolute_path()  # call the path!
-    filename = '../savedata/' + player.name + ' - ' + player.pclass
-    data = player.__dict__
-    if os.path.isfile(filename):
-        os.remove(filename)
-        with open(filename, "w+") as savefile:
-            json.dump(data, savefile)
-        print('Oh, but you can\'t expect to wield supreme executive power\n'
-              'just because some watery tart threw a sword at you.\n'
-              + yellow + bold + 'Player File Updated' + end_color)
+def choose_directory(need_write):
+    '''Select a directory for file output or import, and check that it exists
+       and is writeable.  need_write is a boolean indicating whether or not
+       the directory must be writeable.'''
+    # writeable directory on Android devices (since scripts3 directory of
+    # QPython3 is not writeable from a script)
+    android_dir = '/storage/emulated/{}/Documents'
+    if os.path.isdir(android_dir.format('0')):
+        mydir = android_dir.format('0')
+    elif os.path.isdir(android_dir.format('legacy')):
+        mydir = android_dir.format('legacy')
+    # for all other situations write to current directory
     else:
-        with open(filename, "w+") as savefile:
-            json.dump(data, savefile)
-        print('Go and boil your bottoms, you sons of silly persons!\n'
-              + yellow + bold + 'Player File Created' + end_color)
+        mydir = '.'
 
+    # tell the user what the default is
+    if mydir == '.':
+        dirprint = 'the directory where the script is saved'
+    else:
+        dirprint = mydir
+    if need_write:
+        rw = 'writing'
+    else:
+        rw = 'reading'
+    print('\nDefault directory for {0} files is {1}'.format(rw, dirprint))
 
-def list_player_files():
-    absolute_path()
-    print('\nSaved Data Files\n' + '=' * 30)
-    files = os.listdir('../savedata/')
-    index = 1
-    for item in files:
-        print(index, ': ',  item)
-        index += 1
-    print('\nEnter the number of the player file you wish to load:')
-    choice = input('>>>> ')
-    return choice
+    # test if the default is writeable, ask user if directory should be changed
+    mydir_writeable = os.access(mydir, os.W_OK | os.X_OK)
+    if need_write and not mydir_writeable:
+        print('Directory is not writeable.')
+        change_dir = "2"
+    else:
+        change_dir = "0"
+        while change_dir not in {'1', '2'}:
+            change_dir = input('Press 1 to keep default directory or 2 to change.')
+    if change_dir == '2':  # change the directory
+        tries = 0
+        if platform.system() == "Windows":
+            print("Example directory for Windows: c:/Users/username/Documents/")
+            while tries == 0 or not os.path.isdir(mydir) or \
+                    (need_write and not mydir_writeable):
+                tries += 1
+                mydir = input("Enter a new directory name:")
+                if not os.path.isdir(mydir):
+                    print(mydir + ' is not a valid directory.')
+                else:
+                    mydir_writeable = os.access(mydir, os.W_OK | os.X_OK)
+                    if need_write and not mydir_writeable:
+                        print(mydir + ' does not have write access.')
+    return mydir
 
-
-def load_player_data(player):
-        """Update this to load data to the player object"""
-        absolute_path()
-
-        with open( 'r+') as infile:
-            player = json.load(infile)
-        return player
-
-save_player_data(player1)
-
-"""
-          "\"Listen. Strange women lying in ponds distributing swords is\n"
-          "no basis for a system of government. Supreme executive\n"
-          "power derives from a mandate from the masses, not from\n"
-          "some farcical aquatic ceremony.\"\n" + end_color +
-"""
-
-
-'''
-
-
-#  Update this function later to load data to the player class
-def load_file():
-    """Update this to load data to the player object"""
-    with open(sdir + sfile, 'r+') as infile:
-        player = json.load(infile)
-    return player
-'''
+def write_file(player_data):
+    filename = player_data['name'] + '-' + player_data['pclass']
+    thisdir = choose_directory(True)
