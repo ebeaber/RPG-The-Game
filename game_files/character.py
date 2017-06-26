@@ -15,7 +15,7 @@ class Player(Character):
 
     # Constructor
     def __init__(self, name, race, pclass, ctype, strength, agility, intelligence,
-                 wisdom, constitution):
+                 wisdom, constitution, health, max_health):
         super().__init__(name)
         self.race = race
         self.pclass = pclass
@@ -25,8 +25,8 @@ class Player(Character):
         self.intelligence = intelligence
         self.wisdom = wisdom
         self.constitution = constitution
-        #self.health = health
-        #self.max_health = max_health
+        self.health = health
+        self.max_health = max_health
         #self.mana = mana
         #self.max_mana = max_mana
         #self.energy = energy
@@ -60,7 +60,7 @@ armortypes = {'Padded Cloth': ('light armor', 10),
               'Full Plate Armor': ('heavy armor', 18)}
 
 #dictionary of Character classes (pclass) and class type (ctype)
-character_classes = {'Warrior': 'Melee', 'Paladin': 'Hybrid', 'Wizard': 'Magic'}
+ctypes = {'Warrior': 'Melee', 'Paladin': 'Hybrid', 'Wizard': 'Magic'}
 
 # Melee Attacks
 melee_attacks = dict()
@@ -110,7 +110,7 @@ def choose_race():
 def choose_class():
     # Prompt for and return Character Class as a global
     global pclass
-    for i in character_classes:
+    for i in ctypes:
         print('>> ', i)
     pclass = str(input('Type in the class you\'d like to play: '))
     return pclass.title()
@@ -147,14 +147,22 @@ def player_health(constitution, level):
     # TODO update base HP to dice roll??
     base = constitution  # set a base increase in hp
     factor = 1.3  # set the factor curve 1.8 or lower
-    hp = int(constitution + (base * (level ** factor)))
-    return hp
+    health = int(constitution + (base * (level ** factor)))
+    return health
+
+def player_mana(wisdom, level):
+    # TODO update base Mana to dice roll??
+    base = wisdom
+    factor = 1.0
+    mana = int(wisdom + (base * (level ** factor)))
+    return mana
 
 ### BEGIN BUILD SCRIPT ###
 # build the player dictionary before passing to Object
 
 
 def build_new_player():
+    # Gather's all the data to build a new player object.
     print('{0:=^90}'.format(' RPG The Game '))
     player = dict()
     player['level'] = 1  # New Characters start at level 1
@@ -162,10 +170,13 @@ def build_new_player():
     player['name'] = input('Enter your character\'s name: ')  # .... duh
     player['race'] = choose_race()  # choose a race
     player['pclass'] = choose_class()  # choose a class
+    player['ctype'] = ctypes[player['pclass']]
     player_stats = generate_stats(racial_modifiers[player['race']])  # Roll for stats
     player = {**player, **player_stats}  # combine stats into player dict
     player['health'] = player_health(player['constitution'], player['level'])
     player['max_health'] = player['health']
+    player['mana'] = player_mana(player['wisdom'], player['level'])
+    print('Current Player Dict', sorted(player.items()))
 
-    print('Current Player Dict', player)
-
+player1 = build_new_player()
+print(player1)
