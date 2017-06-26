@@ -15,7 +15,8 @@ class Player(Character):
 
     # Constructor
     def __init__(self, name, race, pclass, ctype, strength, agility, intelligence,
-                 wisdom, constitution, health, max_health):
+                 wisdom, constitution, health, max_health, mana, max_mana,
+                 energy, max_energy):
         super().__init__(name)
         self.race = race
         self.pclass = pclass
@@ -27,10 +28,10 @@ class Player(Character):
         self.constitution = constitution
         self.health = health
         self.max_health = max_health
-        #self.mana = mana
-        #self.max_mana = max_mana
-        #self.energy = energy
-        #self.max_energy = max_energy
+        self.mana = mana
+        self.max_mana = max_mana
+        self.energy = energy
+        self.max_energy = max_energy
         #self.defense = defense
         #self.atkpower = atkpwr
         #self.magpwr = magpwr
@@ -145,38 +146,62 @@ def generate_stats(racial_modifiers):
 
 def player_health(constitution, level):
     # TODO update base HP to dice roll??
-    base = constitution  # set a base increase in hp
-    factor = 1.3  # set the factor curve 1.8 or lower
+    base = 10  # set a base increase in hp
+    factor = 1.35  # set the factor curve 1.8 or lower
     health = int(constitution + (base * (level ** factor)))
     return health
 
+
 def player_mana(wisdom, level):
     # TODO update base Mana to dice roll??
-    base = wisdom
-    factor = 1.0
+    base = 10
+    factor = 1.35
     mana = int(wisdom + (base * (level ** factor)))
     return mana
+
+
+def player_energy(agility, level):
+    base = 10
+    factor = 1.35
+    energy = int(agility + (base * (level ** factor)))
+    return energy
+
 
 ### BEGIN BUILD SCRIPT ###
 # build the player dictionary before passing to Object
 
 
-def build_new_player():
+def build_player_object():
     # Gather's all the data to build a new player object.
     print('{0:=^90}'.format(' RPG The Game '))
-    player = dict()
-    player['level'] = 1  # New Characters start at level 1
-    player['experience'] = 0  # Dream on greenhorn.  0 XP to start
-    player['name'] = input('Enter your character\'s name: ')  # .... duh
-    player['race'] = choose_race()  # choose a race
-    player['pclass'] = choose_class()  # choose a class
-    player['ctype'] = ctypes[player['pclass']]
-    player_stats = generate_stats(racial_modifiers[player['race']])  # Roll for stats
-    player = {**player, **player_stats}  # combine stats into player dict
-    player['health'] = player_health(player['constitution'], player['level'])
-    player['max_health'] = player['health']
-    player['mana'] = player_mana(player['wisdom'], player['level'])
-    print('Current Player Dict', sorted(player.items()))
+    p = dict()
+    p['level'] = 1  # New Characters start at level 1
+    p['experience'] = 0  # Dream on greenhorn.  0 XP to start
+    p['name'] = input('Enter your character\'s name: ')  # .... duh
+    p['race'] = choose_race()  # choose a race
+    p['pclass'] = choose_class()  # choose a class
+    p['ctype'] = ctypes[p['pclass']]
+    player_stats = generate_stats(racial_modifiers[p['race']])  # Roll for stats
+    p = {**p, **player_stats}  # combine stats into player dict
+    p['health'] = player_health(p['constitution'], p['level'])
+    p['max_health'] = p['health']
+    p['mana'] = player_mana(p['wisdom'], p['level'])
+    p['max_mana'] = p['mana']
+    p['energy'] =  player_energy(p['agility'], p['level'])
+    p['max_energy'] = p['energy']
+    # print('Current Player Dict', sorted(player.items())) printout for testing
+    '''Player Object includes:
+    name, race, pclass, ctype, strength, agility, intelligence,
+    wisdom, constitution, health, max_health, mana, max_mana,
+    energy, max_energy
+    '''
+    return Player(p['name'], p['race'], p['pclass'], p['ctype'], p['strength'],
+                  p['agility'], p['intelligence'], p['wisdom'], p['constitution'],
+                  p['health'], p['max_health'], p['mana'], p['max_mana'],
+                  p['energy'], p['max_energy'])
 
-player1 = build_new_player()
-print(player1)
+
+player1 = build_player_object()
+print('Player Object:', player1.__dict__)
+
+
