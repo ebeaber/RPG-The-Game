@@ -16,7 +16,7 @@ class Player(Character):
     # Constructor
     def __init__(self, name, race, pclass, ctype, strength, agility, intelligence,
                  wisdom, constitution, health, max_health, mana, max_mana,
-                 energy, max_energy):
+                 energy, max_energy, inventory):
         super().__init__(name)
         self.race = race
         self.pclass = pclass
@@ -32,6 +32,7 @@ class Player(Character):
         self.max_mana = max_mana
         self.energy = energy
         self.max_energy = max_energy
+        self.inventory = inventory
         #self.defense = defense
         #self.atkpower = atkpwr
         #self.magpwr = magpwr
@@ -189,6 +190,7 @@ def build_player_object():
     p['max_mana'] = p['mana']
     p['energy'] =  player_energy(p['agility'], p['level'])
     p['max_energy'] = p['energy']
+    p['inventory'] = {}  # No experience, no inventory, life is hard.
     # print('Current Player Dict', sorted(player.items())) printout for testing
     '''Player Object includes:
     name, race, pclass, ctype, strength, agility, intelligence,
@@ -198,7 +200,7 @@ def build_player_object():
     return Player(p['name'], p['race'], p['pclass'], p['ctype'], p['strength'],
                   p['agility'], p['intelligence'], p['wisdom'], p['constitution'],
                   p['health'], p['max_health'], p['mana'], p['max_mana'],
-                  p['energy'], p['max_energy'])
+                  p['energy'], p['max_energy'], p['inventory'])
 
 
 player1 = build_player_object()
