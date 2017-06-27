@@ -15,7 +15,8 @@ class Player(Character):
 
     # Constructor
     def __init__(self, name, race, pclass, ctype, strength, agility, intelligence,
-                 wisdom, constitution, health, max_health, mana, max_mana):
+                 wisdom, constitution, health, max_health, mana, max_mana,
+                 energy, max_energy, inventory):
         super().__init__(name)
         self.race = race
         self.pclass = pclass
@@ -31,30 +32,26 @@ class Player(Character):
         self.max_mana = max_mana
         self.energy = energy
         self.max_energy = max_energy
-        self.defense = defense
-        self.atkpower = atkpwr
-        self.magpwr = magpwr
-        self.crit = crit
+        self.inventory = inventory
+        #self.defense = defense
+        #self.atkpower = atkpwr
+        #self.magpwr = magpwr
+        #self.crit = crit
 
     # Deconstructor!
-    @staticmethod
-    def del_player():
+    def del_player(self):
         del Player
-
-    def player_name(self):
-        self.name = str(input('Enter your character\'s name:  '))
-
 
 # Racial Modifiers
 racial_modifiers = dict()
 # {"Strength": , "Agility": , "Intel": ,
 #  "Wisdom": , "Constitution": }
-racial_modifiers["Human"] = {"Strength": 1, "Agility": 1, "Intelligence": 1,
-                             "Wisdom": 1, "Constitution": 1}
-racial_modifiers["Elf"] = {"Strength": 0, "Agility": 1, "Intelligence": 2,
-                           "Wisdom": 1, "Constitution": 0}
-racial_modifiers["Halfling"] = {"Strength": -1, "Agility": 2, "Intelligence": 0,
-                                "Wisdom": 0, "Constitution": -1}
+racial_modifiers["Human"] = {"strength": 1, "agility": 1, "intelligence": 1,
+                             "wisdom": 1, "constitution": 1}
+racial_modifiers["Elf"] = {"strength": 0, "agility": 1, "intelligence": 2,
+                           "wisdom": 1, "constitution": 0}
+racial_modifiers["Halfling"] = {"strength": -1, "agility": 2, "intelligence": 0,
+                                "wisdom": 0, "constitution": -1}
 
 # Armor Types, Skill to use, and armor class
 armortypes = {'Padded Cloth': ('light armor', 10),
@@ -64,8 +61,8 @@ armortypes = {'Padded Cloth': ('light armor', 10),
               'Splint Armor': ('heavy armor', 16),
               'Full Plate Armor': ('heavy armor', 18)}
 
-#dictionary of Character classes (pclass) and class type (ctype)
-character_classes = {'Warrior': 'Melee', 'Paladin': 'Hybrid', 'Wizard': 'Magic'}
+# dictionary of Character classes (pclass) and class type (ctype)
+ctypes = {'Warrior': 'Melee', 'Paladin': 'Hybrid', 'Wizard': 'Magic'}
 
 # Melee Attacks
 melee_attacks = dict()
@@ -104,32 +101,48 @@ def primary_stat_roll():
             a.clear()
     return a
 
+
 def choose_race():
-    # Prompt for and return Character Race as a global
-    global race
-    for i in racial_modifiers.keys():
+    # Prompt for and return Character Race
+    races = set(racial_modifiers.keys())
+    for i in races:
         print('>> ', i)
-    race = str(input('Type in the race you\'d like to play: '))
-    return race.title()
+    while True:
+        race = input('Type in the race you\'d like to play: ').title()
+        if race not in races:
+            print('Try again there Hawking.  You have to type a race on the list.\n')
+            continue
+        else:
+            # Good input received, exit loop
+            break
+    return race
+
 
 def choose_class():
-    # Prompt for and return Character Class as a global
-    global pclass
-    for i in character_classes:
+    # Prompt for and return Character Class
+    for i in ctypes:
         print('>> ', i)
-    pclass = str(input('Type in the class you\'d like to play: '))
-    return pclass.title()
+    while True:
+        pclass = input('Type in the class you\'d like to play: ').title()
+        if pclass not in ctypes:
+            print('English motherfucker, do you read it? Type in a Class on the list!\n')
+            continue
+        else:
+            # Good input received
+            break
+    return pclass
+
 
 def generate_stats(racial_modifiers):
     # Methods to generate stat scores
     scores = primary_stat_roll() # 4D6 - lowest * 5
-
-    #End score generation method
-    stat_names = ["Strength", "Agility", "Constitution",
-               "Intelligence", "Wisdom"]
+    print('The dice have been rolled!')
+    # End score generation method
+    stat_names = ["strength", "agility", "constitution",
+                  "intelligence", "wisdom"]
     player_stats = dict()
-    for j in range(5):  # loop through the six specific abilities
-        print("\nRemaining scores to choose from are:")
+    for j in range(5):  # loop through the specific abilities
+        print("Scores to choose from are:")
         print(scores)
         thismod = racial_modifiers[stat_names[j]]
         if thismod != 0:
@@ -147,15 +160,56 @@ def generate_stats(racial_modifiers):
         del scores[thisind]  # remove score from collection
     return player_stats
 
-### BEGIN BUILD SCRIPT ###
-# build the player dictionary before passing to Object
-'''
-player = dict()
-player['race'] = choose_race()  # choose a race
-player['pclass'] = choose_class()  # choose a class
-player_stats = generate_stats(racial_modifiers[player['race']])  # Roll for stats
-player = {**player, **player_stats}  # combine stats into player dict
 
-print('Current Player Dict', player)
-'''
-# TODO Start basic combat module for melee
+def player_health(constitution, level):
+    base = 10  # set a base increase in hp
+    factor = 1.35  # set the factor curve 1.8 or lower
+    health = int(constitution + (base * (level ** factor)))
+    return health
+
+
+def player_mana(wisdom, level):
+    base = 10
+    factor = 1.35
+    mana = int(wisdom + (base * (level ** factor)))
+    return mana
+
+
+def player_energy(agility, level):
+    base = 10
+    factor = 1.35
+    energy = int(agility + (base * (level ** factor)))
+    return energy
+
+
+# BEGIN BUILD SCRIPT #
+# build the player dictionary before passing to Object
+def build_player_object():
+    # Gather's all the data to build a new player object.
+    print('{0:=^90}'.format(' RPG The Game '))
+    p = dict()
+    p['level'] = 1  # New Characters start at level 1
+    p['experience'] = 0  # Dream on greenhorn.  0 XP to start
+    p['name'] = input('Enter your character\'s name: ')  # .... duh
+    p['race'] = choose_race()  # choose a race
+    p['pclass'] = choose_class()  # choose a class
+    p['ctype'] = ctypes[p['pclass']]
+    player_stats = generate_stats(racial_modifiers[p['race']])  # Roll for stats
+    p = {**p, **player_stats}  # combine stats into player dict
+    p['health'] = player_health(p['constitution'], p['level'])
+    p['max_health'] = p['health']
+    p['mana'] = player_mana(p['wisdom'], p['level'])
+    p['max_mana'] = p['mana']
+    p['energy'] =  player_energy(p['agility'], p['level'])
+    p['max_energy'] = p['energy']
+    p['inventory'] = {}  # No experience, no inventory, life is hard.
+    # print('Current Player Dict', sorted(player.items())) printout for testing
+    '''Player Object includes:
+    name, race, pclass, ctype, strength, agility, intelligence,
+    wisdom, constitution, health, max_health, mana, max_mana,
+    energy, max_energy
+    '''
+    return Player(p['name'], p['race'], p['pclass'], p['ctype'], p['strength'],
+                  p['agility'], p['intelligence'], p['wisdom'], p['constitution'],
+                  p['health'], p['max_health'], p['mana'], p['max_mana'],
+                  p['energy'], p['max_energy'], p['inventory'])
