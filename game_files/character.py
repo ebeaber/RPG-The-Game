@@ -125,7 +125,7 @@ def choose_class():
     while True:
         pclass = input('Type in the class you\'d like to play: ').title()
         if pclass not in ctypes:
-            print('English motherfucker, do you read it? Type in a Class on the list')
+            print('English motherfucker, do you read it? Type in a Class on the list!\n')
             continue
         else:
             # Good input received
@@ -138,9 +138,9 @@ def generate_stats(racial_modifiers):
     # Methods to generate stat scores
     scores = primary_stat_roll() # 4D6 - lowest * 5
     print('The dice have been rolled!')
-    #End score generation method
+    # End score generation method
     stat_names = ["strength", "agility", "constitution",
-               "intelligence", "wisdom"]
+                  "intelligence", "wisdom"]
     player_stats = dict()
     for j in range(5):  # loop through the specific abilities
         print("Scores to choose from are:")
@@ -183,10 +183,8 @@ def player_energy(agility, level):
     return energy
 
 
-### BEGIN BUILD SCRIPT ###
+# BEGIN BUILD SCRIPT #
 # build the player dictionary before passing to Object
-
-
 def build_player_object():
     # Gather's all the data to build a new player object.
     print('{0:=^90}'.format(' RPG The Game '))
