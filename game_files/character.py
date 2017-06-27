@@ -61,7 +61,7 @@ armortypes = {'Padded Cloth': ('light armor', 10),
               'Splint Armor': ('heavy armor', 16),
               'Full Plate Armor': ('heavy armor', 18)}
 
-#dictionary of Character classes (pclass) and class type (ctype)
+# dictionary of Character classes (pclass) and class type (ctype)
 ctypes = {'Warrior': 'Melee', 'Paladin': 'Hybrid', 'Wizard': 'Magic'}
 
 # Melee Attacks
@@ -101,21 +101,38 @@ def primary_stat_roll():
             a.clear()
     return a
 
+
 def choose_race():
-    # Prompt for and return Character Race as a global
-    global race
-    for i in racial_modifiers.keys():
+    # Prompt for and return Character Race
+    races = set(racial_modifiers.keys())
+    for i in races:
         print('>> ', i)
-    race = str(input('Type in the race you\'d like to play: '))
-    return race.title()
+    while True:
+        race = input('Type in the race you\'d like to play: ').title()
+        if race not in races:
+            print('Try again there Hawking.  You have to type a race on the list.\n')
+            continue
+        else:
+            # Good input received, exit loop
+            break
+    return race
+
 
 def choose_class():
-    # Prompt for and return Character Class as a global
-    global pclass
+    # Prompt for and return Character Class
     for i in ctypes:
         print('>> ', i)
-    pclass = str(input('Type in the class you\'d like to play: '))
-    return pclass.title()
+    while True:
+        pclass = input('Type in the class you\'d like to play: ').title()
+        if pclass not in ctypes:
+            print('English motherfucker, do you read it? Type in a Class on the list')
+            continue
+        else:
+            # Good input received
+            break
+    return pclass
+
+choose_class()
 
 def generate_stats(racial_modifiers):
     # Methods to generate stat scores
@@ -146,7 +163,6 @@ def generate_stats(racial_modifiers):
 
 
 def player_health(constitution, level):
-    # TODO update base HP to dice roll??
     base = 10  # set a base increase in hp
     factor = 1.35  # set the factor curve 1.8 or lower
     health = int(constitution + (base * (level ** factor)))
@@ -154,7 +170,6 @@ def player_health(constitution, level):
 
 
 def player_mana(wisdom, level):
-    # TODO update base Mana to dice roll??
     base = 10
     factor = 1.35
     mana = int(wisdom + (base * (level ** factor)))
@@ -201,9 +216,4 @@ def build_player_object():
                   p['agility'], p['intelligence'], p['wisdom'], p['constitution'],
                   p['health'], p['max_health'], p['mana'], p['max_mana'],
                   p['energy'], p['max_energy'], p['inventory'])
-
-
-player1 = build_player_object()
-print('Player Object:', player1.__dict__)
-
 

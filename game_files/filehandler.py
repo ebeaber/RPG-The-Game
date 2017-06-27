@@ -1,6 +1,7 @@
 """This module handles user data saving and loading"""
 import os
 import platform
+import json
 import character
 
 # Some text formatting strings for return messages
@@ -28,7 +29,7 @@ def choose_directory(need_write):
         mydir = android_dir.format('legacy')
     # for all other situations write to current directory
     else:
-        mydir = '.'
+        mydir = './savedata/'
 
     # tell the user what the default is
     if mydir == '.':
@@ -66,6 +67,17 @@ def choose_directory(need_write):
                         print(mydir + ' does not have write access.')
     return mydir
 
+
 def write_file(player_data):
     filename = player_data['name'] + '-' + player_data['pclass']
     thisdir = choose_directory(True)
+    with open(os.path.join(thisdir, filename), mode="w") as myfile:
+        json.dump(player_data, myfile)
+
+
+def read_file():
+    thisdir = choose_directory(False)
+
+write_file(player1.__dict__)
+
+
