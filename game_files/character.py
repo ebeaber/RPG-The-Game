@@ -132,7 +132,6 @@ def choose_class():
             break
     return pclass
 
-choose_class()
 
 def generate_stats(racial_modifiers):
     # Methods to generate stat scores
@@ -214,4 +213,3 @@ def build_player_object():
                   p['agility'], p['intelligence'], p['wisdom'], p['constitution'],
                   p['health'], p['max_health'], p['mana'], p['max_mana'],
                   p['energy'], p['max_energy'], p['inventory'])
-
