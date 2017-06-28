@@ -15,10 +15,7 @@ player1 = character.Player('TestSave', 'Human', 'Warrior', 'melee',
                             'pri_weapon', 'rubles': 200})
 
 
-
 def write_file(name, pclass, data):
     filename = name + '-' + pclass
     with open('../savedata/' + filename, "w") as outfile:
         json.dump(data, outfile)
-
-player = json.loads('../savedata/TestSave-Warrior', object_hook=character.Player)
