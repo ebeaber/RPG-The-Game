@@ -15,24 +15,10 @@ player1 = character.Player('TestSave', 'Human', 'Warrior', 'melee',
                             'pri_weapon', 'rubles': 200})
 
 
-# TODO Fix Directory function to work without user input
-def file_directory():
-    pass
 
+def write_file(name, pclass, data):
+    filename = name + '-' + pclass
+    with open('../savedata/' + filename, "w") as outfile:
+        json.dump(data, outfile)
 
-def write_file(player_data):
-    pass
-    '''
-    filename = player_data['name'] + '-' + player_data['pclass']
-    thisdir = file_directory()
-    with open(os.path.join(thisdir, filename), mode="w") as myfile:
-        json.dump(player_data, myfile)
-
-
-def read_file():
-    thisdir = choose_directory(False)
-
-write_file(player1.__dict__)
-
-
-'''
+player = json.loads('../savedata/TestSave-Warrior', object_hook=character.Player)
