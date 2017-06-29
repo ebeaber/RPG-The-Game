@@ -3,6 +3,8 @@ import os
 from filehandler import player1
 
 data = player1.__dict__
+
+
 # Get correct to the correct directory
 if os.path.relpath('.', '..') == 'game_files':
     print('Game files check', os.getcwd())

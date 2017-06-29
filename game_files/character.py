@@ -1,6 +1,6 @@
 # Imports
-from dice import roll_dice
-import random
+from game_files.dice import roll_dice, primary_stat_roll
+
 
 class Character(object):
     """Primary Object for all Character objects in the game"""
