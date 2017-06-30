@@ -1,5 +1,11 @@
 import json
 import os
+from character import Player
+
+# Some test Player data
+player1 = Player("TestData", "Human", "Warrior", "melee", 20, 19, 18, 17,
+                 16, 25, 25, 20, 20, 18, 18,
+                 {"Padded": "armor", "Long Sword": "weapon"})
 
 # First navigate to top level folder of the package
 while True:
@@ -29,15 +35,30 @@ def convert_to_json(x):
 def write_file(player_data):
     x = convert_to_json(player_data)  # serialize new data
     with open('player.json', 'w') as file:  # write new data
-        json.dump(x, file)
+        json.dump(x, file, sort_keys=True, indent=4)
     print('Saved Player Data...')  # print return message
     print('Data saved:', x)
 
-
-# TODO Finish this... Needs to load saved data into a new Player object
+write_file(player1)  # test write functions
 
 # Load function.  Read JSON file and load to Player object.
+''' A Player object contains the following required arguments: 
+name, race, pclass, ctype, strength, agility,
+intelligence, wisdom, constitution, health, max_health,
+mana, max_mana, energy, max_energy, inventory
+'''
+
+
 def read_file():
+    # open the file and load the info
     with open('player.json', 'r') as f:
         data = json.load(f)
     return data
+
+x = read_file()
+print('Loading return', x)
+
+
+# TODO Complete the build function to return a Player object
+def build_from_load(d):
+    pass
