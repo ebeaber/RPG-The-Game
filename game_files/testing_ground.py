@@ -1,28 +1,42 @@
 import json
 import os
-from filehandler import player1
+from character import Player
+from filehandler import player1 as player
 
-data = player1.__dict__
+# First navigate to top level folder
+while True:
+    if os.path.relpath('.', '..') != 'RPG-The-Game':
+        os.chdir('..')
+        continue
+    else:
+        break
+
+if not os.path.isdir('./savedata'):  # check for folder
+    os.makedirs('./savedata/')  # create folder
+    os.chdir('./savedata/')  # move to folder
+    # print('Created and moved to Save Data')  # print a test message for devs
+else:
+    os.chdir('./savedata')  # folder exists - just move to it
+    # print('Folder exists, moving to Save Data')  # test message for devs
 
 
-# Get correct to the correct directory
-if os.path.relpath('.', '..') == 'game_files':
-    print('Game files check', os.getcwd())
-    os.chdir('../savedata')
-if os.path.relpath('.', '..') == 'RPG-The-Game':
-    print('Root Folder Check', os.getcwd())
-    os.chdir('./savedata')
-if os.path.relpath('.', '..') == 'savedata':
-    print('You made it to the correct folder')
+# JSON Converter function
+def convert_to_json(x):
+    return x.__dict__
 
 
 # Writing JSON data
-def write_file(x):
-    with open('data.json', 'w') as f:
-        json.dump(x, f)
+def write_file(player_data):
+    x = convert_to_json(player_data)  # serialize new data
+    with open('player.json', 'w') as file:  # write new data
+        json.dump(x, file)
+    print('Saved Player Data...')  # print return message
+    print('Data saved:', x)
 
 
+# TODO Finish this... Needs to load saved data into a Player object
 # Reading data back
 def read_file():
-    with open('data.json', 'r') as f:
+    with open('player.json', 'r') as f:
         data = json.load(f)
+    return data

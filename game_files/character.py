@@ -14,9 +14,9 @@ class Player(Character):
     """Player objects and functions"""
 
     # Constructor
-    def __init__(self, name, race, pclass, ctype, strength, agility, intelligence,
-                 wisdom, constitution, health, max_health, mana, max_mana,
-                 energy, max_energy, inventory):
+    def __init__(self, name, race, pclass, ctype, strength, agility,
+                 intelligence, wisdom, constitution, health, max_health,
+                 mana, max_mana, energy, max_energy, inventory):
         super().__init__(name)
         self.race = race
         self.pclass = pclass
