@@ -1,1 +1,8 @@
 
+.idea/RPG-The-Game.iml
+.idea/misc.xml
+.idea/dictionaries/jwaje.xml
+.idea/runConfigurations/
+.idea/workspace.xml
+game_files/__pycache__/
+savedata/
