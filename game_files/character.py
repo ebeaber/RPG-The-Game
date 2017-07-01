@@ -14,9 +14,9 @@ class Player(Character):
     """Player objects and functions"""
 
     # Constructor
-    def __init__(self, name, race, pclass, ctype, strength, agility, intelligence,
-                 wisdom, constitution, health, max_health, mana, max_mana,
-                 energy, max_energy, inventory):
+    def __init__(self, name, race, pclass, ctype, strength, agility,
+                 intelligence, wisdom, constitution, health, max_health,
+                 mana, max_mana, energy, max_energy, inventory):
         super().__init__(name)
         self.race = race
         self.pclass = pclass
@@ -186,7 +186,6 @@ def player_energy(agility, level):
 # build the player dictionary before passing to Object
 def build_player_object():
     # Gather's all the data to build a new player object.
-    print('{0:=^90}'.format(' RPG The Game '))
     p = dict()
     p['level'] = 1  # New Characters start at level 1
     p['experience'] = 0  # Dream on greenhorn.  0 XP to start
