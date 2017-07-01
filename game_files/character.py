@@ -87,21 +87,6 @@ spell_attacks['Heal'] = {'Priest': 4, 'Paladin': 2}
 spell_attacks['Extreme Heal'] = {'Priest': 7, 'Paladin': 4}
 
 
-def primary_stat_roll():
-    good_roll = False
-    a = []
-    while not good_roll:
-        for i in range(6):
-            x = roll_dice(4, 6)
-            x.remove(min(x))
-            a.append(int(sum(x)))
-        if max(a) > 13:
-            good_roll = True
-        else:
-            a.clear()
-    return a
-
-
 def choose_race():
     # Prompt for and return Character Race
     races = set(racial_modifiers.keys())

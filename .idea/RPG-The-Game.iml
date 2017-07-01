@@ -7,7 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Example files" />
       <excludeFolder url="file://$MODULE_DIR$/savedata" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.5.2 (/usr/bin/python3.5)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6.1 (C:\Users\jwaje\AppData\Local\Programs\Python\Python36-32\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">
