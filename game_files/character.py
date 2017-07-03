@@ -121,13 +121,13 @@ def choose_class():
 def generate_stats(racial_modifiers):
     # Methods to generate stat scores
     scores = primary_stat_roll() # 4D6 - lowest * 5
-    print('The dice have been rolled!')
+    print('\nThe dice have been rolled!')
     # End score generation method
     stat_names = ["strength", "agility", "constitution",
                   "intelligence", "wisdom"]
     player_stats = dict()
     for j in range(5):  # loop through the specific abilities
-        print("Scores to choose from are:")
+        print("\nScores to choose from are:")
         print(scores)
         thismod = racial_modifiers[stat_names[j]]
         if thismod != 0:
@@ -135,11 +135,11 @@ def generate_stats(racial_modifiers):
                 thismodtxt = "+" + str(thismod)
             else:
                 thismodtxt = str(thismod)
-            print('''\nA {0} racial increase will be added for {1}.
+            print('''A {0} racial increase will be added for {1}.
                   '''.format(thismodtxt, stat_names[j]))
         thisscore = -99
         while thisscore not in scores:
-            thisscore = int(input("Choose score for " + stat_names[j] + ": "))
+            thisscore = int(input("Enter a score for " + stat_names[j] + ": "))
         player_stats[stat_names[j]] = thisscore + thismod  # assign score to ability
         thisind = scores.index(thisscore)
         del scores[thisind]  # remove score from collection
