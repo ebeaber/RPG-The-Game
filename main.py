@@ -1,3 +1,6 @@
-print('{0:=^90}'.format(' RPG The Game '))
+import filehandler
 
-player1 = character.Player
+print('\n{0:=^90}\n'.format(' RPG The Game '))
+
+# run the file handler script
+filehandler.game_load()

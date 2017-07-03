@@ -1,8 +1,7 @@
-import dice
 from random import random, randint
-from character import Character
 
-# TODO Create enemies to continue combat module....
+import dice
+from character import Character
 
 
 class Enemy(Character):

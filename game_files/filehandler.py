@@ -1,29 +1,35 @@
 import json
 import os
 
+import character
 from character import Player
+
 
 # Some test Player data
 # player1 = Player("TestData", "Human", "Warrior", "melee", 20, 19, 18, 17,
 #                 16, 25, 25, 20, 20, 18, 18,
 #                 {"Padded": "armor", "Long Sword": "weapon"})
 
-# First navigate to top level folder of the package
-while True:
-    if os.path.relpath('.', '..') != 'RPG-The-Game':
-        os.chdir('..')
-        continue
-    else:
-        break
 
-# Then create or move to the directory to store the data
+# First navigate to top level folder of the package
+def moving_on_up():
+    while True:
+        if os.path.relpath('.', '..') != 'RPG-The-Game':
+            os.chdir('..')
+            continue
+        else:
+            break
+
+
 save_dir = './savedata/'  # name the directory to save to
 
-if not os.path.isdir(save_dir):  # check if directory isn't there
-    os.makedirs(save_dir)  # create directory
-    os.chdir(save_dir)  # move to directory
-else:
-    os.chdir(save_dir)  # if directory exists - just move to it
+
+def folder_check():
+    if not os.path.isdir(save_dir):  # check if directory isn't there
+        os.makedirs(save_dir)  # create directory
+        os.chdir(save_dir)  # move to directory
+    else:
+        os.chdir(save_dir)  # if directory exists - just move to it
 
 
 # JSON Converter function
@@ -53,3 +59,25 @@ def load_player():
     player = Player(**read_file())
     print('Loaded Player Data...')
     return player
+
+
+# Game loading function
+def game_load():
+    moving_on_up()  # get to the correct directory
+    folder_check()  # check for the folder, create if needed
+
+    if os.path.isfile('player.json'):
+        print('A saved character was found.  Would you like to continue or create a new one?\n'
+              'Type LOAD to load, or NEW to create a new one.')
+        choice = input('>>>> ')
+        if choice == 'LOAD':
+            player = load_player()
+            return player
+        else:
+            player = character.build_player_object()
+            return player
+    else:
+        print('Greetings.  Please create a new character to begin!')
+        player = character.build_player_object()
+        write_file(player)
+        return player
