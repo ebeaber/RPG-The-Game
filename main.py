@@ -1,6 +1,8 @@
 import filehandler
 
-print('\n{0:=^90}\n'.format(' RPG The Game '))
+print('\n{0:=^120}\n'.format(' RPG The Game '))
 
 # run the file handler script
-filehandler.game_load()
+player = filehandler.game_load()
+
+print(player.__dict__)

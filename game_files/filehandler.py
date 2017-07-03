@@ -69,11 +69,15 @@ def game_load():
     if os.path.isfile('player.json'):
         print('A saved character was found.  Would you like to continue or create a new one?\n'
               'Type LOAD to load, or NEW to create a new one.')
-        choice = input('>>>> ')
-        if choice == 'LOAD':
+        choice = input('>>>> ').lower()
+        if choice == 'load':
             player = load_player()
             return player
+        if choice == 'new':
+            player = character.build_player_object()
+            return player
         else:
+            print('Since you can\'t type, we\'ll just start you anew.')
             player = character.build_player_object()
             return player
     else:
