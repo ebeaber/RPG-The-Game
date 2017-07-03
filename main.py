@@ -7,6 +7,7 @@ print('\n{0:=^120}\n'.format(' RPG The Game '))
 player = filehandler.game_load()
 print('\nGreetings,', player.name, 'welcome to the RPG!')
 
+# Make a main menu:
 def main_menu():
     print('\nChoose an action: ')
     menu_options = ['Explore', 'Inventory', 'Quit Game']
@@ -25,4 +26,17 @@ def main_menu():
         sys.exit()
 
 
+def explore():
+    # link to movement module
+    pass
+
+
+def inventory():
+    # create inventory management functions
+    pass
+
+
+# Call menu scripts and while loops down here
 main_menu()
+
+

@@ -1,5 +1,9 @@
+"""This file contains the Character Object and the Player class required
+to build a new character.  Modifications to the Character class must be
+reflected in the Player Class and the Enemy module."""
+
 # Imports
-from game_files.dice import roll_dice, primary_stat_roll
+from game_files.dice import primary_stat_roll
 
 
 class Character(object):
@@ -7,7 +11,7 @@ class Character(object):
 
     # Constructor
     def __init__(self, name):
-        self.name = name  # all characters need name
+        self.name = name  # all character objects must be named
 
 
 class Player(Character):
@@ -42,6 +46,34 @@ class Player(Character):
     def del_player(self):
         del Player
 
+    # TODO Add Combat functions
+    def attack_power(self):
+        pass
+
+    def defense_value(self):
+        pass
+
+    def reduce_stat(self, stat):
+        pass
+
+    def increase_stat(self, stat)
+        pass
+
+    def incease_xp(self, enemy_xp_value):
+        pass
+
+    # TODO Add inventory functions
+    def add_item(self):
+        pass
+
+    def remove_item(self):
+        pass
+
+    # TODO Add player gear functions???
+
+
+# # # Being Character Creations Functions # # #
+
 # Racial Modifiers
 racial_modifiers = dict()
 # {"Strength": , "Agility": , "Intel": ,
@@ -53,39 +85,8 @@ racial_modifiers["Elf"] = {"strength": 0, "agility": 1, "intelligence": 2,
 racial_modifiers["Halfling"] = {"strength": -1, "agility": 2, "intelligence": 0,
                                 "wisdom": 0, "constitution": -1}
 
-# Armor Types, Skill to use, and armor class
-armortypes = {'Padded Cloth': ('light armor', 10),
-              'Leather Armor': ('light armor', 12),
-              'Chain Mail': ('medium armor', 13),
-              'Half Plate Armor': ('medium armor', 15),
-              'Splint Armor': ('heavy armor', 16),
-              'Full Plate Armor': ('heavy armor', 18)}
-
 # dictionary of Character classes (pclass) and class type (ctype)
-ctypes = {'Warrior': 'Melee', 'Paladin': 'Hybrid', 'Wizard': 'Magic'}
-
-# Melee Attacks
-melee_attacks = dict()
-# Define attack, Class to use and base dmg
-melee_attacks['Punch'] = {'Warrior': 2, 'Paladin': 2, 'Monk': 5}
-melee_attacks['Slash'] = {'Warrior': 5, 'Paladin': 5}
-melee_attacks['Kick'] = {'Warrior': 1, 'Paladin': 1, 'Monk': 4}
-melee_attacks['Flying Kick'] = {'Monk': 3}
-
-
-# Spell Attacks
-spell_attacks = dict()
-# Define attack, classes that can use and dmg for that class
-spell_attacks['Fireball'] = {'Wizard': 5}
-spell_attacks['Blizzard'] = {'Wizard': 4}
-spell_attacks['Plasma Shot'] = {'Wizard': 3}
-
-# Beneficial Spells
-beneficial_spells = dict()
-spell_attacks['Light Heal'] = {'Priest': 2, 'Paladin': 1}
-spell_attacks['Heal'] = {'Priest': 4, 'Paladin': 2}
-spell_attacks['Extreme Heal'] = {'Priest': 7, 'Paladin': 4}
-
+ctypes = {'Warrior': 'melee', 'Paladin': 'hybrid', 'Wizard': 'magic'}
 
 def choose_race():
     # Prompt for and return Character Race
