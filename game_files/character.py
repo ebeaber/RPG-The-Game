@@ -64,8 +64,7 @@ class Player(Character):
 
     # TODO Add inventory functions
     def list_items(self):
-        items = self.inventory
-        for k in items:
+        for k in self.inventory:
             print(k)
 
     def add_item(self):
@@ -91,7 +90,9 @@ racial_modifiers["Halfling"] = {"strength": -1, "agility": 2, "intelligence": 0,
                                 "wisdom": 0, "constitution": -1}
 
 # dictionary of Character classes (pclass) and class type (ctype)
-ctypes = {'Warrior': 'melee', 'Paladin': 'hybrid', 'Wizard': 'magic'}
+ctypes = {'Warrior': 'melee',
+          'Paladin': 'hybrid',
+          'Wizard': 'magic'}
 
 def choose_race():
     # Prompt for and return Character Race
