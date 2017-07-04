@@ -15,3 +15,8 @@ weapontypes = {'Long Sword': ('melee', 5),
                'Gemmed Staff': ('magic', 5),
                'One-Handed Sword': ('hybrid', 4)}
 
+"""
+for k, (val1, val2) in armortypes.items():
+    if val1 == 'light armor':
+        print(k, '-', val2, 'AC')
+"""

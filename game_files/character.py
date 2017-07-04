@@ -56,13 +56,18 @@ class Player(Character):
     def reduce_stat(self, stat):
         pass
 
-    def increase_stat(self, stat)
+    def increase_stat(self, stat):
         pass
 
     def incease_xp(self, enemy_xp_value):
         pass
 
     # TODO Add inventory functions
+    def list_items(self):
+        items = self.inventory
+        for k in items:
+            print(k)
+
     def add_item(self):
         pass
 
@@ -188,12 +193,14 @@ def build_player_object():
     p['energy'] =  player_energy(p['agility'], p['level'])
     p['max_energy'] = p['energy']
     p['inventory'] = {}  # No experience, no inventory, life is hard.
-    # print('Current Player Dict', sorted(player.items())) printout for testing
-    '''Player Object includes:
+
+    '''
+    Player Object includes:
     name, race, pclass, ctype, strength, agility, intelligence,
     wisdom, constitution, health, max_health, mana, max_mana,
     energy, max_energy
     '''
+
     return Player(p['name'], p['race'], p['pclass'], p['ctype'], p['strength'],
                   p['agility'], p['intelligence'], p['wisdom'], p['constitution'],
                   p['health'], p['max_health'], p['mana'], p['max_mana'],

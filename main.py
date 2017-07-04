@@ -1,5 +1,6 @@
 import filehandler
 import sys
+from character import Player
 
 print('\n{0:=^120}\n'.format(' RPG The Game '))
 
@@ -13,7 +14,7 @@ def main_menu():
     menu_options = ['Explore', 'Inventory', 'Quit Game']
     index = 1
     for i in menu_options:
-        print(index, i)
+        print(index, ':',  i)
         index += 1
     choice = int(input('>>>> ')) - 1
     if choice == 0:
@@ -33,7 +34,7 @@ def explore():
 
 def inventory():
     # create inventory management functions
-    pass
+    Player.list_items()
 
 
 # Call menu scripts and while loops down here
