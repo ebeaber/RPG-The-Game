@@ -13,6 +13,9 @@ class Enemy(Character):
         self.wisdom = wisdom
         self.constitution = constitution
 
+    # TODO Add Combat functions
+    # TODO Add loot generator functions
+
 
 enemies = {'Spider': 'small', 'Imp': 'small', 'Wolf': 'medium', 'Goblin': 'medium',
            'Ogre': 'large', 'Orc': 'large', 'Troll': 'large', 'Marmalade': 'boss'}
