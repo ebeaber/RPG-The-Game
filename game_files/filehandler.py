@@ -75,10 +75,12 @@ def game_load():
             return player
         if choice == 'new':
             player = character.build_player_object()
+            write_file(player)
             return player
         else:
             print('Since you can\'t type, we\'ll just start you anew.')
             player = character.build_player_object()
+            write_file(player)
             return player
     else:
         print('Greetings.  Please create a new character to begin!')

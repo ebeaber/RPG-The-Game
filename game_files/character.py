@@ -70,8 +70,11 @@ class Player(Character):
     def add_item(self):
         pass
 
-    def remove_item(self):
+    def destroy_item(self):
         pass
+
+    def sell_item(self):
+        print('We haven\'t coded this yet.  No Cash for you')
 
     # TODO Add player gear functions???
 
